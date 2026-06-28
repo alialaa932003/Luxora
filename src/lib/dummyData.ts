@@ -1,0 +1,151 @@
+import type { Product, Category } from '@/types/product.types'
+
+export const dummyCategories: Category[] = [
+  {
+    id: 'cat_001',
+    name: 'Electronics',
+    slug: 'electronics',
+    image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=600&h=600&fit=crop',
+    parent: null,
+    isFeatured: true,
+    productCount: 24,
+  },
+  {
+    id: 'cat_002',
+    name: 'Apparel & Fashion',
+    slug: 'fashion',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=600&fit=crop',
+    parent: null,
+    isFeatured: true,
+    productCount: 42,
+  },
+  {
+    id: 'cat_003',
+    name: 'Home & Living',
+    slug: 'home-living',
+    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&h=600&fit=crop',
+    parent: null,
+    isFeatured: true,
+    productCount: 18,
+  },
+  {
+    id: 'cat_004',
+    name: 'Wellness & Beauty',
+    slug: 'beauty',
+    image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&h=600&fit=crop',
+    parent: null,
+    isFeatured: true,
+    productCount: 31,
+  },
+]
+
+export const dummyProducts: Product[] = [
+  {
+    id: 'prod_001',
+    name: 'Aether Wireless Studio Headphones',
+    slug: 'aether-wireless-studio-headphones',
+    description: 'High-fidelity audio with active noise cancellation, handcrafted leather padding, and up to 40 hours of battery life.',
+    price: 349.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_001', name: 'Electronics', slug: 'electronics' },
+    vendor: { id: 'vendor_001', storeName: 'Aether Audio', rating: 4.8 },
+    rating: { average: 4.8, count: 124 },
+    stock: 12,
+    isFeatured: true,
+    createdAt: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 'prod_002',
+    name: 'Lumina Minimalist Leather Wallet',
+    slug: 'lumina-minimalist-leather-wallet',
+    description: 'RFID-blocking full-grain leather cardholder with space for 8 cards and flat cash. Beautifully slim profile.',
+    price: 49.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_002', name: 'Fashion', slug: 'fashion' },
+    vendor: { id: 'vendor_002', storeName: 'Lumina Atelier', rating: 4.9 },
+    rating: { average: 4.9, count: 86 },
+    stock: 50,
+    isFeatured: true,
+    createdAt: '2026-01-02T00:00:00.000Z',
+  },
+  {
+    id: 'prod_003',
+    name: 'Vessel Self-Heating Ceramic Mug',
+    slug: 'vessel-self-heating-ceramic-mug',
+    description: 'Keep your drink at the perfect temperature all day. Charging coaster included. Safe, intelligent heating.',
+    price: 99.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_003', name: 'Home & Living', slug: 'home-living' },
+    vendor: { id: 'vendor_003', storeName: 'Vessel Design', rating: 4.7 },
+    rating: { average: 4.6, count: 54 },
+    stock: 22,
+    isFeatured: true,
+    createdAt: '2026-01-03T00:00:00.000Z',
+  },
+  {
+    id: 'prod_004',
+    name: 'Nectar Botanical Face Oil',
+    slug: 'nectar-botanical-face-oil',
+    description: 'Hydrating blend of organic marula, jojoba, and rosehip oils. Revitalizes skin radiance naturally.',
+    price: 64.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_004', name: 'Beauty', slug: 'beauty' },
+    vendor: { id: 'vendor_004', storeName: 'Nectar Labs', rating: 4.9 },
+    rating: { average: 4.9, count: 215 },
+    stock: 35,
+    isFeatured: true,
+    createdAt: '2026-01-04T00:00:00.000Z',
+  },
+  {
+    id: 'prod_005',
+    name: 'Atmos Purifying Ceramic Diffuser',
+    slug: 'atmos-purifying-ceramic-diffuser',
+    description: 'Ultrasonic aroma diffuser housed in a stone-crafted ceramic shell. Silent operation with automatic shutoff.',
+    price: 119.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1602928321679-560bb453f190?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1602928321679-560bb453f190?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_003', name: 'Home & Living', slug: 'home-living' },
+    vendor: { id: 'vendor_003', storeName: 'Vessel Design', rating: 4.7 },
+    rating: { average: 4.7, count: 98 },
+    stock: 0,
+    isFeatured: false,
+    createdAt: '2026-01-05T00:00:00.000Z',
+  },
+  {
+    id: 'prod_006',
+    name: 'Helios Mechanical Keyboard',
+    slug: 'helios-mechanical-keyboard',
+    description: 'Sleek aluminum base, hot-swappable switches, wireless connectivity, and premium Jakarta typography keycaps.',
+    price: 189.99,
+    currency: 'USD',
+    thumbnail: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=600&fit=crop',
+    images: [
+      { url: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&h=600&fit=crop', alt: 'Front' }
+    ],
+    category: { id: 'cat_001', name: 'Electronics', slug: 'electronics' },
+    vendor: { id: 'vendor_005', storeName: 'Helios Lab', rating: 4.6 },
+    rating: { average: 4.5, count: 37 },
+    stock: 8,
+    isFeatured: true,
+    createdAt: '2026-01-06T00:00:00.000Z',
+  },
+]
