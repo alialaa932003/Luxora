@@ -38,6 +38,10 @@ export interface Product {
   isFeatured: boolean
   createdAt: string
   updatedAt?: string
+  originalPrice?: number
+  condition?: string
+  postedAge?: string
+  university?: string
 }
 
 export interface Category {

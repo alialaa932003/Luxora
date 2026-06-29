@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { ShoppingCart, Eye } from '@lucide/vue'
+import { Store } from 'lucide-vue-next'
 import RatingComponent from '@/components/common/feedback/RatingComponent.vue'
 import { useCartStore } from '@/stores/cart.store'
 import { useToast } from '@/composables/useToast'
@@ -20,6 +20,7 @@ const adding = ref(false)
 const imageLoaded = ref(false)
 
 const isOutOfStock = computed(() => props.product.stock === 0)
+const hasDiscount = computed(() => props.product.originalPrice && props.product.originalPrice > props.product.price)
 
 async function addToCart() {
   if (isOutOfStock.value || adding.value) return
@@ -35,13 +36,13 @@ async function addToCart() {
 
 <template>
   <div
-    class="group relative  bg-card rounded-2xl overflow-hidden card-elevated card-hover border border-border/50 flex"
-    :class="orientation === 'horizontal' ? 'flex-row' : 'flex-col'"
+    class="group bg-white rounded-[1.75rem] overflow-hidden card-elevated card-hover border border-border/40 flex flex-col h-full"
+    :class="orientation === 'horizontal' ? 'sm:flex-row' : 'flex-col'"
   >
     <!-- Image Area -->
     <div
-      class="relative overflow-hidden bg-muted/30"
-      :class="orientation === 'horizontal' ? 'w-36 flex-shrink-0' : 'aspect-square'"
+      class="relative overflow-hidden bg-muted/20"
+      :class="orientation === 'horizontal' ? 'sm:w-48 flex-shrink-0 aspect-square sm:aspect-auto' : 'aspect-square'"
     >
       <RouterLink :to="`/products/${product.slug}`" class="block w-full h-full">
         <img
@@ -59,80 +60,94 @@ async function addToCart() {
         />
       </RouterLink>
 
-      <!-- Badges -->
-      <div class="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none">
-        <span v-if="product.isFeatured" class="px-2 py-0.5 rounded-full text-xs font-semibold gradient-primary text-white shadow-sm">
+      <!-- Badges Floating Top-Left -->
+      <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 pointer-events-none z-10">
+        <span
+          v-if="hasDiscount"
+          class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-red-500 text-white shadow-sm"
+        >
+          Sale
+        </span>
+        <span
+          v-if="product.isFeatured"
+          class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-primary text-white shadow-sm"
+        >
           Featured
         </span>
-        <span v-if="isOutOfStock" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-foreground/80 text-background shadow-sm">
-          Sold Out
+        <span
+          v-if="isOutOfStock"
+          class="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-foreground/80 text-background shadow-sm"
+        >
+          Out of Stock
         </span>
       </div>
 
-      <!-- Wishlist Button -->
-      <div class="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+      <!-- Wishlist Button Floating Top-Right -->
+      <div class="absolute top-3 right-3 z-10">
         <WishlistButton :productId="product.id" size="sm" />
-      </div>
-
-      <!-- Quick Actions -->
-      <div
-        v-if="orientation !== 'horizontal'"
-        class="absolute bottom-0 left-0 right-0 p-3 flex gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-      >
-        <button
-          @click="addToCart"
-          :disabled="isOutOfStock || adding"
-          class="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold rounded-xl gradient-primary text-white shadow-md hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:-translate-y-0.5"
-        >
-          <ShoppingCart :size="15" />
-          {{ adding ? 'Adding…' : isOutOfStock ? 'Out of Stock' : 'Add to Cart' }}
-        </button>
-        <RouterLink
-          :to="`/products/${product.slug}`"
-          class="p-2.5 rounded-xl bg-white/90 hover:bg-white text-foreground shadow-md transition-all duration-200 hover:-translate-y-0.5"
-          aria-label="View product"
-        >
-          <Eye :size="15" />
-        </RouterLink>
       </div>
     </div>
 
     <!-- Info Area -->
-    <div class="flex flex-col gap-2 p-4 flex-1 min-w-0">
-      <!-- Category -->
-      <span class="text-[11px] font-semibold uppercase tracking-widest text-primary/70">
-        {{ product.category.name }}
-      </span>
+    <div class="flex flex-col p-5 flex-1 justify-between gap-4">
+      <div class="flex flex-col gap-2">
+        <!-- Category -->
+        <span class="text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground">
+          {{ product.category.name }}
+        </span>
 
-      <!-- Title -->
-      <RouterLink
-        :to="`/products/${product.slug}`"
-        class="font-semibold text-foreground text-sm leading-snug line-clamp-2 hover:text-primary transition-colors duration-200"
-      >
-        {{ product.name }}
-      </RouterLink>
+        <!-- Title & Price (Aligned horizontally) -->
+        <div class="flex justify-between items-start gap-4">
+          <RouterLink
+            :to="`/products/${product.slug}`"
+            class="font-bold text-foreground text-sm sm:text-base leading-snug line-clamp-2 hover:text-primary transition-colors duration-150 animate-pulse-once"
+          >
+            {{ product.name }}
+          </RouterLink>
+          
+          <div class="flex flex-col items-end flex-shrink-0">
+            <!-- Price Component -->
+            <PriceComponent :amount="product.price" :currency="product.currency" class="text-sm sm:text-base font-extrabold text-foreground" />
+            <!-- Slashed Original Price -->
+            <span
+              v-if="hasDiscount"
+              class="text-xs text-muted-foreground line-through mt-0.5"
+            >
+              ${{ product.originalPrice }}
+            </span>
+          </div>
+        </div>
 
-      <!-- Rating -->
-      <RatingComponent
-        v-if="product.rating.count > 0"
-        :average="product.rating.average"
-        :count="product.rating.count"
-        size="sm"
-        showCount
-      />
+        <!-- Rating (if exists) -->
+        <div v-if="product.rating.count > 0" class="flex items-center gap-1.5 mt-1">
+          <RatingComponent
+            :average="product.rating.average"
+            :count="product.rating.count"
+            size="sm"
+            showCount
+          />
+        </div>
+      </div>
 
-      <!-- Price -->
-      <PriceComponent :amount="product.price" :currency="product.currency" class="mt-auto pt-1" />
-
-      <!-- Horizontal add to cart -->
-      <button
-        v-if="orientation === 'horizontal'"
-        @click="addToCart"
-        :disabled="isOutOfStock || adding"
-        class="mt-2 py-2 text-sm font-semibold rounded-xl gradient-primary text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-      >
-        {{ adding ? 'Adding…' : isOutOfStock ? 'Out of Stock' : 'Add to Cart' }}
-      </button>
+      <!-- Seller Details Footer Row -->
+      <div class="flex items-center justify-between pt-3 border-t border-border/40 mt-auto">
+        <div class="flex items-center gap-2">
+          <!-- Seller Icon -->
+          <div class="w-5.5 h-5.5 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+            <Store :size="10" class="text-primary" />
+          </div>
+          <span class="text-[11px] font-semibold text-muted-foreground hover:text-foreground transition-colors cursor-pointer leading-none">
+            {{ product.vendor.storeName }}
+          </span>
+        </div>
+        <button
+          @click="addToCart"
+          :disabled="isOutOfStock || adding"
+          class="px-3.5 py-1.5 text-[10px] font-extrabold rounded-full bg-primary text-white hover:opacity-90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 shadow-sm"
+        >
+          {{ adding ? '...' : 'Add' }}
+        </button>
+      </div>
     </div>
   </div>
 </template>

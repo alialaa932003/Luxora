@@ -63,10 +63,13 @@ watch(sort, () => { page.value = 1 })
     <AppNavbar />
 
     <main class="container mx-auto px-4 lg:px-8 py-10">
-      <!-- Page header -->
-      <div class="mb-8">
-        <p class="text-sm text-muted-foreground mb-1">Explore</p>
-        <h1 class="text-3xl font-bold text-foreground tracking-tight">All Products</h1>
+      <!-- Solid Page Header Banner (No Gradients!) -->
+      <div class="bg-primary/5 rounded-[2rem] border border-border/30 px-6 py-10 md:px-12 md:py-12 mb-10 text-center md:text-left flex flex-col gap-3">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-primary">Marketplace</p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">Find your next campus essential</h1>
+        <p class="text-sm sm:text-base text-muted-foreground max-w-xl">
+          Search thousands of listings from verified students at universities across the country.
+        </p>
       </div>
 
       <div class="flex gap-8">

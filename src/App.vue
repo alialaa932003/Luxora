@@ -25,7 +25,11 @@ onMounted(async () => {
 </script>
 
 <template>
-  <RouterView />
+  <RouterView v-slot="{ Component }">
+    <transition name="fade-in-page" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </RouterView>
   <CartSheet />
   <Toaster position="top-right" :expand="true" rich-colors />
 </template>

@@ -36,6 +36,7 @@ const paymentMethod = ref<'stripe' | 'paypal' | 'cod'>('stripe')
 async function placeOrder() {
   loading.value = true
   await new Promise(r => setTimeout(r, 1500))
+  cartStore.clearCart()
   router.push({ name: 'order-success' })
 }
 </script>
@@ -45,29 +46,37 @@ async function placeOrder() {
     <AppNavbar />
 
     <main class="container mx-auto px-4 lg:px-8 py-10">
-      <h1 class="text-3xl font-bold text-foreground tracking-tight mb-8">Checkout</h1>
+      <h1 class="text-3xl font-extrabold text-foreground tracking-tight mb-8">Checkout</h1>
 
       <!-- Step progress -->
       <div class="flex items-center mb-10 gap-0">
         <template v-for="(s, i) in steps" :key="s.id">
           <div class="flex items-center gap-2">
             <div
-              class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300"
-              :style="step > s.id
-                ? 'background: oklch(0.6 0.18 160); color: white;'
-                : step === s.id
-                  ? 'background: linear-gradient(135deg, oklch(0.32 0.09 295), oklch(0.45 0.12 280)); color: white; box-shadow: 0 4px 14px oklch(0.32 0.09 295 / 0.3);'
-                  : 'background: oklch(0.94 0.005 85); color: oklch(0.52 0.015 285);'"
+              class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 border-2"
+              :class="
+                step > s.id
+                  ? 'bg-emerald-500 border-emerald-500 text-white'
+                  : step === s.id
+                    ? 'bg-primary border-primary text-white shadow-sm'
+                    : 'bg-white border-border/80 text-muted-foreground/50'
+              "
             >
               <Check v-if="step > s.id" :size="16" />
               <component v-else :is="s.icon" :size="16" />
             </div>
-            <span class="text-sm font-medium hidden sm:block"
-              :style="step === s.id ? 'color: oklch(0.32 0.09 295);' : 'color: oklch(0.52 0.015 285);'">
+            <span
+              class="text-sm font-bold hidden sm:block transition-colors"
+              :class="step === s.id ? 'text-primary' : 'text-muted-foreground/60'"
+            >
               {{ s.label }}
             </span>
           </div>
-          <div v-if="i < steps.length - 1" class="flex-1 h-px mx-3" style="background: oklch(0.88 0.008 85);" />
+          <div
+            v-if="i < steps.length - 1"
+            class="flex-1 h-px mx-3"
+            :class="step > s.id ? 'bg-emerald-500' : 'bg-border/80'"
+          />
         </template>
       </div>
 
@@ -76,92 +85,133 @@ async function placeOrder() {
         <div class="lg:col-span-2">
           <!-- Step 1: Shipping -->
           <div v-if="step === 1" class="space-y-6">
-            <div class="p-6 rounded-2xl border" style="border-color: oklch(0.88 0.008 85);">
-              <h2 class="text-lg font-bold text-foreground mb-5">Shipping Address</h2>
+            <div class="p-6 bg-white rounded-[2rem] border border-border/40 shadow-sm">
+              <h2 class="text-lg font-extrabold text-foreground mb-5">Shipping Address</h2>
               <div class="grid grid-cols-2 gap-4">
-                <div class="space-y-1.5">
-                  <label class="text-sm font-semibold text-foreground">First Name</label>
-                  <input v-model="shippingForm.firstName" class="w-full h-11 px-4 rounded-xl border text-sm focus:outline-none transition-all" style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);" placeholder="Ali" />
+                <div class="space-y-1.5 col-span-2 sm:col-span-1">
+                  <label class="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">First Name</label>
+                  <input v-model="shippingForm.firstName" class="w-full h-11 px-4 rounded-xl border border-border bg-white text-sm focus:outline-none focus:border-primary transition-all" placeholder="Ali" />
                 </div>
-                <div class="space-y-1.5">
-                  <label class="text-sm font-semibold text-foreground">Last Name</label>
-                  <input v-model="shippingForm.lastName" class="w-full h-11 px-4 rounded-xl border text-sm focus:outline-none transition-all" style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);" placeholder="Hassan" />
+                <div class="space-y-1.5 col-span-2 sm:col-span-1">
+                  <label class="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">Last Name</label>
+                  <input v-model="shippingForm.lastName" class="w-full h-11 px-4 rounded-xl border border-border bg-white text-sm focus:outline-none focus:border-primary transition-all" placeholder="Hassan" />
                 </div>
                 <div class="space-y-1.5 col-span-2">
-                  <label class="text-sm font-semibold text-foreground">Street Address</label>
-                  <input v-model="shippingForm.address" class="w-full h-11 px-4 rounded-xl border text-sm focus:outline-none transition-all" style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);" placeholder="123 Main Street" />
+                  <label class="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">Street Address</label>
+                  <input v-model="shippingForm.address" class="w-full h-11 px-4 rounded-xl border border-border bg-white text-sm focus:outline-none focus:border-primary transition-all" placeholder="123 Main Street" />
                 </div>
-                <div class="space-y-1.5">
-                  <label class="text-sm font-semibold text-foreground">City</label>
-                  <input v-model="shippingForm.city" class="w-full h-11 px-4 rounded-xl border text-sm focus:outline-none transition-all" style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);" placeholder="Cairo" />
+                <div class="space-y-1.5 col-span-2 sm:col-span-1">
+                  <label class="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">City</label>
+                  <input v-model="shippingForm.city" class="w-full h-11 px-4 rounded-xl border border-border bg-white text-sm focus:outline-none focus:border-primary transition-all" placeholder="Cairo" />
                 </div>
-                <div class="space-y-1.5">
-                  <label class="text-sm font-semibold text-foreground">Postal Code</label>
-                  <input v-model="shippingForm.postalCode" class="w-full h-11 px-4 rounded-xl border text-sm focus:outline-none transition-all" style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);" placeholder="11511" />
+                <div class="space-y-1.5 col-span-2 sm:col-span-1">
+                  <label class="text-xs font-extrabold uppercase tracking-wider text-muted-foreground">Postal Code</label>
+                  <input v-model="shippingForm.postalCode" class="w-full h-11 px-4 rounded-xl border border-border bg-white text-sm focus:outline-none focus:border-primary transition-all" placeholder="11511" />
                 </div>
               </div>
             </div>
             <button
               @click="step = 2"
-              class="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm"
-              style="background: linear-gradient(135deg, oklch(0.32 0.09 295), oklch(0.45 0.12 280));"
+              :disabled="!shippingForm.firstName || !shippingForm.lastName || !shippingForm.address || !shippingForm.city || !shippingForm.postalCode"
+              class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm shadow-sm hover:opacity-90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150"
             >
-              Continue to Payment <ChevronRight :size="16" />
+              <span>Continue to Payment</span>
+              <ChevronRight :size="16" />
             </button>
           </div>
 
           <!-- Step 2: Payment -->
           <div v-else-if="step === 2" class="space-y-6">
-            <div class="p-6 rounded-2xl border" style="border-color: oklch(0.88 0.008 85);">
-              <h2 class="text-lg font-bold text-foreground mb-5">Payment Method</h2>
-              <div class="space-y-3">
+            <div class="p-6 bg-white rounded-[2rem] border border-border/40 shadow-sm">
+              <h2 class="text-lg font-extrabold text-foreground mb-5">Payment Method</h2>
+              <div class="space-y-3.5">
                 <label
-                  v-for="method in [{ id: 'stripe', label: 'Credit / Debit Card', desc: 'Visa, Mastercard, Amex', emoji: '💳' }, { id: 'paypal', label: 'PayPal', desc: 'Fast and secure', emoji: '🅿️' }, { id: 'cod', label: 'Cash on Delivery', desc: 'Pay when you receive', emoji: '💵' }]"
+                  v-for="method in [{ id: 'stripe', label: 'Credit / Debit Card', desc: 'Visa, Mastercard, Amex', emoji: '💳' }, { id: 'paypal', label: 'PayPal', desc: 'Fast and secure checkout', emoji: '🅿️' }, { id: 'cod', label: 'Cash on Delivery', desc: 'Pay when you receive', emoji: '💵' }]"
                   :key="method.id"
-                  class="flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200"
-                  :style="paymentMethod === method.id ? 'border-color: oklch(0.32 0.09 295); background: oklch(0.32 0.09 295 / 0.05);' : 'border-color: oklch(0.88 0.008 85);'"
+                  class="flex items-center gap-4 p-4 rounded-2xl border cursor-pointer transition-all duration-150"
+                  :class="paymentMethod === method.id ? 'border-primary bg-primary/5' : 'border-border/60 hover:bg-muted/30'"
                 >
                   <input type="radio" :value="method.id" v-model="paymentMethod" class="accent-primary" />
                   <span class="text-xl">{{ method.emoji }}</span>
                   <div>
-                    <p class="font-semibold text-sm text-foreground">{{ method.label }}</p>
-                    <p class="text-xs text-muted-foreground">{{ method.desc }}</p>
+                    <p class="font-extrabold text-sm text-foreground leading-none">{{ method.label }}</p>
+                    <p class="text-[11px] text-muted-foreground mt-1">{{ method.desc }}</p>
                   </div>
                 </label>
               </div>
+
+              <!-- Mock Credit Card Form (Stripe Mockup) -->
+              <div v-if="paymentMethod === 'stripe'" class="mt-6 p-5 bg-muted/15 border border-border/50 rounded-2xl space-y-4 animate-in fade-in duration-200">
+                <p class="text-[10px] font-extrabold uppercase tracking-wider text-muted-foreground">Card Details</p>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-semibold text-foreground">Cardholder Name</label>
+                  <input type="text" placeholder="Ali Hassan" class="w-full h-10 px-3 rounded-lg border border-border/80 bg-white text-sm focus:outline-none focus:border-primary" />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-semibold text-foreground">Card Number</label>
+                  <div class="relative">
+                    <input type="text" placeholder="4242 4242 4242 4242" class="w-full h-10 pl-10 pr-3 rounded-lg border border-border/80 bg-white text-sm focus:outline-none focus:border-primary" />
+                    <CreditCard :size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="space-y-1.5">
+                    <label class="text-xs font-semibold text-foreground">Expiration Date</label>
+                    <input type="text" placeholder="MM / YY" class="w-full h-10 px-3 rounded-lg border border-border/80 bg-white text-sm focus:outline-none focus:border-primary" />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label class="text-xs font-semibold text-foreground">CVC</label>
+                    <input type="text" placeholder="123" class="w-full h-10 px-3 rounded-lg border border-border/80 bg-white text-sm focus:outline-none focus:border-primary" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mock PayPal Button (PayPal Mockup) -->
+              <div v-else-if="paymentMethod === 'paypal'" class="mt-6 text-center animate-in fade-in duration-200">
+                <button type="button" class="w-full h-11 bg-[#FFC439] hover:bg-[#F2BA30] text-[#003087] rounded-full font-bold text-sm shadow-sm flex items-center justify-center gap-1.5 active:scale-98 transition-all">
+                  <span class="italic font-extrabold text-base">PayPal</span>
+                  <span>Checkout</span>
+                </button>
+              </div>
+
+              <!-- Cash on Delivery Details -->
+              <div v-else-if="paymentMethod === 'cod'" class="mt-6 p-4 bg-muted/15 border border-border/50 rounded-2xl text-xs text-muted-foreground animate-in fade-in duration-200">
+                <p class="font-bold text-foreground">Cash on Delivery</p>
+                <p class="mt-1">You will pay for your order in cash when the courier delivers it to your address.</p>
+              </div>
             </div>
+
             <div class="flex gap-3">
-              <button @click="step = 1" class="px-6 py-3 rounded-xl border text-sm font-medium" style="border-color: oklch(0.88 0.008 85);">
+              <button @click="step = 1" class="px-6 py-3 rounded-xl border border-border text-sm font-bold text-foreground bg-white hover:bg-muted/50 transition-colors">
                 Back
               </button>
               <button
                 @click="step = 3"
-                class="flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold text-sm"
-                style="background: linear-gradient(135deg, oklch(0.32 0.09 295), oklch(0.45 0.12 280));"
+                class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-white font-bold text-sm shadow-sm hover:opacity-90 active:scale-95 transition-all duration-150"
               >
-                Review Order <ChevronRight :size="16" />
+                <span>Review Order</span>
+                <ChevronRight :size="16" />
               </button>
             </div>
           </div>
 
           <!-- Step 3: Review -->
           <div v-else class="space-y-6">
-            <div class="p-6 rounded-2xl border space-y-4" style="border-color: oklch(0.88 0.008 85);">
-              <h2 class="text-lg font-bold text-foreground">Order Review</h2>
-              <div class="text-sm text-muted-foreground space-y-1">
-                <p><span class="font-semibold text-foreground">Ship to:</span> {{ shippingForm.firstName }} {{ shippingForm.lastName }}, {{ shippingForm.address }}, {{ shippingForm.city }}</p>
-                <p><span class="font-semibold text-foreground">Payment:</span> {{ paymentMethod === 'stripe' ? 'Credit Card' : paymentMethod === 'paypal' ? 'PayPal' : 'Cash on Delivery' }}</p>
+            <div class="p-6 bg-white rounded-[2rem] border border-border/40 shadow-sm space-y-4">
+              <h2 class="text-lg font-extrabold text-foreground">Order Review</h2>
+              <div class="text-sm text-muted-foreground space-y-2">
+                <p><span class="font-bold text-foreground">Ship to:</span> {{ shippingForm.firstName }} {{ shippingForm.lastName }}, {{ shippingForm.address }}, {{ shippingForm.city }}, {{ shippingForm.postalCode }}</p>
+                <p><span class="font-bold text-foreground">Payment Method:</span> <span class="capitalize font-semibold text-primary">{{ paymentMethod === 'stripe' ? 'Credit Card' : paymentMethod === 'paypal' ? 'PayPal' : 'Cash on Delivery' }}</span></p>
               </div>
             </div>
             <div class="flex gap-3">
-              <button @click="step = 2" class="px-6 py-3 rounded-xl border text-sm font-medium" style="border-color: oklch(0.88 0.008 85);">
+              <button @click="step = 2" class="px-6 py-3 rounded-xl border border-border text-sm font-bold text-foreground bg-white hover:bg-muted/50 transition-colors">
                 Back
               </button>
               <button
                 @click="placeOrder"
                 :disabled="loading"
-                class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-white font-semibold text-sm disabled:opacity-60"
-                style="background: linear-gradient(135deg, oklch(0.32 0.09 295), oklch(0.45 0.12 280));"
+                class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-primary text-white font-bold text-sm shadow-sm hover:opacity-90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150"
               >
                 <Loader2 v-if="loading" :size="18" class="animate-spin" />
                 <template v-else>Place Order</template>

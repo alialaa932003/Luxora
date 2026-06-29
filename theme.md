@@ -1,4 +1,4 @@
-# Premium Modern E-Commerce Design System
+# Premium Modern E-Commerce Design System (Revamped)
 
 Act as an award-winning Product Designer, Creative Director, UX Specialist, and Senior Frontend Engineer.
 
@@ -64,356 +64,109 @@ Avoid anything that looks like a standard admin dashboard or a basic online stor
 
 ---
 
-# Color Palette
+# Color Palette & Styling
 
-Avoid common startup colors such as:
+Avoid common startup colors such as default blue, sky blue, or generic indigo. Instead use a premium palette:
 
-* Default Blue
-* Sky Blue
-* Generic Indigo
+### Primary Brand Color (Saturated & Light Purple)
+*   **Primary Purple:** `oklch(0.51 0.22 291)` / `#7C3AED` — Vibrant, rich, saturated purple. Used for solid backgrounds, active tabs, text highlights, and primary CTAs.
+*   **Primary Light Purple:** `oklch(0.58 0.23 291)` / `#8B5CF6` — Used for hover states and secondary elements.
+*   **Primary Accent / Selected Bg:** `oklch(0.94 0.03 291)` / `rgba(124, 58, 237, 0.1)` — Soft, light purple highlight background for selected categories or active states.
 
-Instead use a premium palette.
+### Accents
+*   **Soft Coral / Warm Peach:** `oklch(0.85 0.12 50)` — Used for notifications, warnings, or special highlight indicators (like the live university badge).
+*   **Sage Green:** `oklch(0.72 0.08 160)` — Used for positive states like "In Stock".
 
-Example direction:
+### Neutrals
+*   **Warm Cream Background:** `#FAF7F2` — A cozy, warm white/ivory background that makes the page feel premium and human.
+*   **Card Background:** Pure white `#ffffff` or clean elevated ivory.
+*   **Text Primary:** `oklch(0.14 0.02 280)` — Deep charcol-stone color.
+*   **Text Muted:** `oklch(0.52 0.015 285)` — Soft stone grey.
+*   **Border:** `oklch(0.88 0.008 85)` / `#EBE5D9` — Extremely subtle warm-grey borders.
 
-Primary
-
-* Deep Plum
-* Royal Violet
-* Rich Eggplant
-
-Accent
-
-* Soft Coral
-* Warm Peach
-* Sage Green
-* Lavender
-* Muted Gold
-
-Neutrals
-
-* Ivory
-* Warm White
-* Soft Stone
-* Light Beige
-* Warm Gray
-
-Cards should have a subtle elevated background rather than pure white.
-
-Use gradients sparingly and only to enhance premium sections like hero banners or CTAs.
+> [!WARNING]
+> **No Gradients:** Linear, radial, or mesh gradients are completely removed from backgrounds, banners, and buttons. Fills must be solid colors or light transparent overlays, and boundaries should rely on thin, elegant borders.
 
 ---
 
 # Typography
 
-Use modern fonts such as:
+Use modern fonts:
 
-* Inter
-* Geist
-* Manrope
-* Plus Jakarta Sans
+* Plus Jakarta Sans (headings)
+* Inter (body copy)
 
 Typography should create a luxury editorial feeling.
-
-Large headings.
-
-Comfortable line heights.
-
-Excellent hierarchy.
-
-Beautiful spacing.
+Large headings, comfortable line heights, excellent hierarchy, and beautiful letter-spacing.
 
 ---
 
 # Layout
 
-The layout should feel open and breathable.
-
-Use generous spacing.
-
-Strong visual hierarchy.
-
-Consistent grid system.
-
-Perfect alignment.
-
-Every section should naturally guide the user toward discovering products.
+The layout should feel open and breathable:
+*   Generous spacing.
+*   Strong visual hierarchy.
+*   Consistent grid system.
+*   Perfect alignment.
 
 ---
 
-# Hero Section
+# Revamped Core Components
 
-Design a premium marketing hero instead of a simple banner.
+### 1. App Navigation Bar (Navbar)
+*   **Structure:**
+    *   Left: Logo "CampusMarket" in bold text next to a solid purple tile icon with a white "L" or emblem.
+    *   Center: Integrated inline search bar (rounded-full, thin border, search icon, light background input text).
+    *   Right: Icon links for Search (if not inline), Wishlist (heart), Notifications (bell), and Cart (shopping bag). All indicators/count-badges must be solid primary purple circles with white text.
+    *   Sign In button, and a prominent solid primary purple action button: "Sell an item".
+*   **Style:** Pure white or transparent background with a shadow on scroll. No gradients.
 
-Include:
+### 2. Marketing Hero Section
+*   **Structure:**
+    *   Left Content:
+        *   A pill badge with an orange-red dot: `Now serving 120+ universities`.
+        *   Headline: "The marketplace built for students." (vibrant purple highlight for the word "students").
+        *   Description: "Find textbooks, laptops and dorm essentials from verified students at your university..."
+        *   Search Box: Integrated input field with search icon and a solid primary purple "Search" button.
+        *   Features Checklist: Triple bullet points with checkmark icons (Verified .edu accounts only, Student-to-student, Average reply under 1 hour).
+    *   Right Image Container:
+        *   A large photo showing students with rounded-3xl corners.
+        *   Floating cards:
+            *   "3 new listings near you in the last hour" (top right, white bg, thin shadow).
+            *   "Saved this month $847,200" (bottom left, white bg, green icon).
+*   **Style:** Solid cream `#FAF7F2` background. No gradients.
 
-* Beautiful product photography
-* Elegant typography
-* Clear CTA
-* Subtle decorative backgrounds
-* Soft gradients
-* Floating UI elements
-* Promotional badges
-* Modern search experience
+### 3. Product Card
+*   **Structure:**
+    *   Image: Rounded container (`rounded-3xl`) taking up most of the card height.
+    *   Top-Left Badges: "Like New" (white bg, thin border, black text) and "Featured" (solid primary purple bg, white text).
+    *   Top-Right Button: Wishlist toggle (circular white background, black heart icon).
+    *   Details: Category label in small uppercase muted text. Title on the left, Price on the right. Original price (slashed) underneath the current price.
+    *   Seller details: Bottom row containing user avatar, school name (e.g. `Stanford University`), and time (e.g. `2d ago`).
+*   **Style:** Clean border, no hover action overlay on card image.
 
-The hero should immediately make users want to explore.
+### 4. Marketplace & Sidebar (ProductListView)
+*   **Top Banner:** Clean solid banner panel (no gradient) saying "Find your next campus essential".
+*   **Sidebar filters:**
+    *   Category list on left with counts on right. Selected category has a solid light-purple pill background (`bg-primary/10 text-primary font-semibold`).
+    *   Price range input boxes.
+    *   Rating filters and stock toggle.
 
----
-
-# Product Cards
-
-Product cards are one of the most important components.
-
-Each card should include:
-
-* Large professional product image
-* Beautiful hover animation
-* Wishlist icon
-* Product title
-* Price
-* Rating
-* Category
-* Quick actions
-* Modern badges
-* Soft shadows
-* Rounded corners
-
-Hover interactions should feel smooth and premium.
-
----
-
-# Product Details
-
-Create a luxurious shopping experience.
-
-Include:
-
-* Large image gallery
-* Sticky purchase section
-* Product information
-* Specifications
-* Reviews
-* Seller information
-* Related products
-* Beautiful tabs
-* Elegant spacing
-
-The product page should feel similar to premium brand websites rather than traditional marketplaces.
+### 5. Single Product Page (ProductDetailView)
+*   **Structure:**
+    *   Back to marketplace link.
+    *   Left column: Large product image with rounded-3xl corners.
+    *   Right column: Category badge, condition badge, title, price, description.
+    *   Details Grid: Card grid for University, Faculty, Condition, and Pickup location.
+    *   Primary button: "Request to buy" / "Add to Cart" in solid purple.
+    *   Secondary buttons: "Save" (heart) and "Share" icon button.
+    *   Seller Profile Card: Avatar, name, university, rating stars, and "View profile" button.
 
 ---
 
-# Categories
-
-Categories should feel visually rich.
-
-Use:
-
-* Large image cards
-* Beautiful icons
-* Editorial typography
-* Hover animations
-* Soft gradients
-
-Avoid simple colored boxes.
-
----
-
-# Images
-
-Use only realistic, professional photography.
-
-Never use placeholders.
-
-Images should look like professional commercial photography.
-
-Products should be photographed in clean environments with excellent lighting.
-
-Lifestyle images should show products being naturally used by real people.
-
----
-
-# Icons
-
-Use Lucide Icons.
-
-Consistent size.
-
-Minimal.
-
-Elegant.
-
-Only where necessary.
-
----
-
-# Cards
-
-Cards should feel premium.
-
-Use:
-
-* Soft shadows
-* Rounded corners (16–24px)
-* Thin borders
-* Elevated hover effects
-* Smooth transitions
-
-Avoid flat boxes.
-
----
-
-# Buttons
-
-Buttons should feel modern.
-
-Primary buttons
-
-* Rich filled colors
-* Soft shadows
-* Premium hover effects
-
-Secondary buttons
-
-* Ghost style
-* Elegant outlines
-
-Interactions should include:
-
-* Smooth transitions
-* Slight scaling
-* Soft glow
-* Elevation
-
----
-
-# Forms
-
-Inputs should feel modern.
-
-Rounded.
-
-Comfortable padding.
-
-Beautiful focus states.
-
-Subtle shadows.
-
-Elegant borders.
-
----
-
-# Animations
-
-Use tasteful animations throughout the website.
-
-Examples:
-
-* Fade-in
-* Product image zoom
-* Card lift
-* Smooth page transitions
-* Floating decorative shapes
-* Animated gradients
-* Hover micro-interactions
-* Elegant loading skeletons
-
-Animations should enhance the experience without distracting users.
-
----
-
-# Decorative Elements
-
-Use subtle decorative details such as:
-
-* Mesh gradients
-* Soft radial gradients
-* Floating circles
-* Abstract geometric shapes
-* Grid patterns
-* Glow effects
-* Glass-inspired surfaces
-* Organic background shapes
-
-Everything should remain clean and minimal.
-
----
-
-# Components
-
-Create a reusable design system including:
-
-* Navigation
-* Mega Menu
-* Hero Banner
-* Search Bar
-* Product Card
-* Category Card
-* Brand Card
-* Collection Card
-* Review Card
-* Buttons
-* Inputs
-* Dropdowns
-* Filters
-* Badges
-* Breadcrumbs
-* Pagination
-* Wishlist Button
-* Shopping Cart
-* Product Gallery
-* Footer
-
-Every component should feel consistent across the application.
-
----
-
-# Responsive Design
-
-Desktop first.
-
-Tablet optimized.
-
-Mobile polished.
-
-Every layout should adapt naturally.
-
-No component should break.
-
----
-
-# Accessibility
-
-Maintain excellent color contrast.
-
-Readable typography.
-
-Visible focus states.
-
-Large touch targets.
-
-Keyboard-friendly interactions.
-
----
-
-# Final Goal
-
-The final website should look like a premium modern e-commerce platform that could realistically compete with today's best online shopping experiences.
-
-It should feel elegant, memorable, and portfolio-worthy.
-
-If someone saw screenshots of the website, they should assume it was designed by a professional product design agency rather than generated by AI.
-
-Before writing any code, first define:
-
-* Design system
-* Color tokens
-* Typography scale
-* Spacing system
-* Border radius
-* Elevation system
-* Motion principles
-* Reusable components
-
-Then ensure every page strictly follows this design language.
-
-Prioritize originality, consistency, elegance, and production-ready quality over speed or simplicity.
+# Reusable UI Patterns
+
+*   **Buttons:** Solid primary purple `bg-primary` with hover `bg-primary-hover` (light purple), white text, soft shadow, no gradient.
+*   **Inputs:** Fully rounded-xl, comfortable padding, focus state with solid purple border ring.
+*   **Badges:** Solid purple for featured/new, white with borders for condition.
+*   **Transitions:** Clean `all 200ms cubic-bezier(0.4, 0, 0.2, 1)`.

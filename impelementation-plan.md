@@ -1,4 +1,4 @@
-# E-Commerce Frontend — Full Implementation Plan
+# E-Commerce Frontend — Full Implementation Plan & Design Enhancement
 
 ## Overview
 
@@ -11,25 +11,23 @@ Covers: Home flow, Auth flow, Profile flow, Product/Search flow, Cart & Checkout
 > **Scope of this plan**: Customer-facing storefront only (no admin/seller portal yet).  
 > **Excluded per user**: Refresh token flow, Reset/Forgot password flows.  
 > **Future-ready**: Folder structure supports Admin + Seller dashboards.
+> **Design Refinement (New)**: Update primary brand color to a more saturated, slightly lighter purple (`oklch(0.51 0.22 291)` / `#7C3AED`), completely eliminate background gradients in favor of high-end solid panels, and revamp the Navbar, Hero, Product Card, and Product Details views based on the new campus marketplace design reference.
 
 ---
 
 ## Design System
 
-| Token | Value |
-|---|---|
-| Primary | Deep Plum `hsl(270 40% 25%)` |
-| Primary Light | Royal Violet `hsl(270 50% 50%)` |
-| Accent | Warm Peach `hsl(20 80% 70%)` / Muted Gold `hsl(40 60% 60%)` |
-| Surface | Warm White `hsl(40 20% 97%)` |
-| Card | Ivory `hsl(40 15% 95%)` |
-| Text Primary | `hsl(270 10% 10%)` |
-| Text Muted | `hsl(270 5% 50%)` |
-| Border | `hsl(270 10% 88%)` |
-| Font | Plus Jakarta Sans + Inter |
-| Radius | Card: 20px · Button: 12px · Input: 10px |
-| Shadows | Layered warm-tinted box-shadows |
-| Motion | `cubic-bezier(0.4,0,0.2,1)` 200–300ms |
+| Token | Old Value | New Value |
+|---|---|---|
+| Primary | Deep Plum `oklch(0.32 0.09 295)` | Saturated Purple `oklch(0.51 0.22 291)` / `#7C3AED` |
+| Primary Light | Royal Violet `oklch(0.48 0.12 295)` | Saturated Light Purple `oklch(0.58 0.23 291)` / `#8B5CF6` |
+| Primary Accent | Muted Lavender `oklch(0.94 0.015 295)` | Light Purple Pill `oklch(0.94 0.03 291)` / `rgba(124, 58, 237, 0.1)` |
+| Accent | Warm Peach `oklch(0.88 0.06 50)` | Soft Coral `oklch(0.85 0.12 50)` |
+| Surface | Warm White `hsl(40 20% 97%)` / `#FAF7F1` | Warm Ivory `#FAF7F2` |
+| Card | White / Ivory | Elevated ivory card with clean border |
+| Gradients | Linear/Radial gradients in buttons/heros | **REMOVED** — Solid fills and clean borders only |
+| Radius | Card: 20px · Button: 12px · Input: 10px | Card: 24px (rounded-3xl) · Button: 16px (rounded-2xl) |
+| Shadows | Layered warm-tinted box-shadows | Minimal soft shadows with clean borders |
 
 ---
 
@@ -43,15 +41,17 @@ src/
 │   ├── layout/              # Navbar, Footer, AnnouncementBar
 │   ├── common/              # shared across all flows
 │   │   ├── product/         # ProductCard, ProductGrid, ProductGallery
-│   │   ├── feedback/        # ReviewCard, RatingComponent, EmptyState, ErrorComponent
+│   │   ├── feedback/        # ReviewCard, RatingComponent, EmptyState, ErrorComponent, ReviewSubmitDialog
 │   │   ├── navigation/      # Breadcrumb, MegaMenu, SearchBar
 │   │   ├── commerce/        # CartItem, CartSummary, PriceComponent, QuantitySelector
-│   │   └── display/         # ImageCarousel, SkeletonLoaders, Badges, Pagination
+│   │   └── display/         # ImageCarousel, SkeletonLoaders, Badges, Pagination, FilterSidebar, SortDropdown
 │   └── forms/               # reusable form field components
 ├── views/                   # route-level pages
 │   ├── home/
+│   │   ├── HomeView.vue
+│   │   └── sections/        # HeroSection, FeaturedCategoriesSection, FeaturedProductsSection, etc.
 │   ├── auth/
-│   ├── product/
+│   ├── product/             # ProductListView, ProductDetailView
 │   ├── category/
 │   ├── search/
 │   ├── cart/
@@ -63,385 +63,115 @@ src/
 ├── composables/             # useCart, useWishlist, useAuth, useSearch …
 ├── stores/                  # Pinia stores (auth, cart, wishlist, ui, notifications)
 ├── services/                # API layer (axios instances + per-module service files)
-│   ├── api/
-│   │   ├── auth.service.ts
-│   │   ├── products.service.ts
-│   │   ├── categories.service.ts
-│   │   ├── cart.service.ts
-│   │   ├── wishlist.service.ts
-│   │   ├── orders.service.ts
-│   │   ├── reviews.service.ts
-│   │   ├── search.service.ts
-│   │   ├── users.service.ts
-│   │   ├── notifications.service.ts
-│   │   └── vendors.service.ts
-│   └── http.ts              # axios instance + interceptors
 ├── router/
-│   ├── index.ts
-│   ├── guards.ts            # auth guards
-│   └── routes/              # split route files per area
-│       ├── home.routes.ts
-│       ├── auth.routes.ts
-│       ├── product.routes.ts
-│       ├── account.routes.ts
-│       ├── cart.routes.ts
-│       └── checkout.routes.ts
 ├── types/                   # global TypeScript types/interfaces
-│   ├── api.types.ts         # response envelope types
-│   ├── auth.types.ts
-│   ├── product.types.ts
-│   ├── cart.types.ts
-│   ├── order.types.ts
-│   └── user.types.ts
 ├── lib/
 │   ├── utils.ts             # shadcn cn() util
-│   └── validators.ts        # zod schemas for forms
-├── middleware/              # route-level middleware
-└── main.ts
+│   └── dummyData.ts         # mock data including realistic unsplash images
+├── main.ts
 ```
 
 ---
 
 ## Phase Breakdown
 
----
+### Phase 0 — Project Setup & Design System ⚙️
+*   Configure Tailwind v4 CSS variables in `src/style.css` to use the new light, highly saturated purple color tokens (`oklch(0.51 0.22 291)` and `oklch(0.58 0.23 291)`).
+*   Remove all `.gradient-primary`, `.gradient-hero`, and other gradient utilities, replacing them with solid brand fills (`bg-primary`, `bg-background`).
+*   Configure global border radius (`--radius: 1rem`) to support elegant rounded components.
 
-## Phase 0 — Project Setup & Design System ⚙️
+### Phase 1 — Layout Components (Revamped Navbar) 🏗️
+*   **AppNavbar.vue:** Update to match the new campus marketplace layout.
+    *   Left side: Clean logo `CampusMarket` with a solid purple block icon.
+    *   Center: Rounded search bar input with a search icon and a clean text input.
+    *   Right side: Wishlist, Notifications, Cart icons with small circular counts, "Sign In" button, and a prominent solid primary purple action button: "Sell an item".
+    *   No gradients, thin border underneath, soft scroll shadow.
 
-### Steps
+### Phase 2 — Product & Catalog Components (Revamped Cards) 🧩
+*   **ProductCard.vue:** Make card design editorial and clean.
+    *   Image: Rounded container `rounded-2xl` or `rounded-3xl` taking 75% height.
+    *   Badges: Floating on top-left of image (white background with gray border "Like New", solid purple "Featured").
+    *   Wishlist: Floating on top-right of image (circular white background with heart icon).
+    *   Details: Category label in small uppercase muted text. Title on the left, Price on the right. Original price slashed below current price.
+    *   Seller details: Bottom row containing user avatar, school name (e.g. `Stanford University`), and time (e.g. `2d ago`).
+    *   Remove hover cart button overlay from card image.
+*   **FilterSidebar.vue:** Update filters layout.
+    *   Category list on left with count on right. Selected category has a solid light-purple pill background (`bg-primary/10 text-primary font-semibold`).
+    *   Price input boxes, rating filters, and stock toggle (no gradients, simple toggles).
+*   **ProductGallery.vue:** Premium grid with main image + thumbnail row.
 
-- [ ] Install dependencies: `vue-router`, `pinia`, `axios`, `@vueuse/core`, `lucide-vue-next`, `zod`, `@tanstack/vue-query`
-- [ ] Install & configure **shadcn-vue** (New York style)
-- [ ] Install shadcn-vue components: `button`, `input`, `badge`, `card`, `dialog`, `sheet`, `dropdown-menu`, `tabs`, `accordion`, `skeleton`, `toast`, `avatar`, `separator`, `select`, `checkbox`, `radio-group`, `label`, `form`, `pagination`, `tooltip`, `popover`, `scroll-area`
-- [ ] Configure `vite.config.ts` — path aliases `@/`
-- [ ] Create `tailwind.config.ts` with custom design tokens (CSS vars mapped to theme)
-- [ ] Set up `src/assets/css/globals.css` — design system tokens, typography, base reset
-- [ ] Configure `src/lib/utils.ts` — `cn()` helper
-- [ ] Set up `src/router/index.ts` with scroll behavior
-- [ ] Set up Pinia with `src/stores/`
-- [ ] Configure Axios instance `src/services/http.ts` with interceptors + auth header injection
-- [ ] Set up `@tanstack/vue-query` for server state
-- [ ] Set up global error handler
-- [ ] Set up `App.vue` with `<RouterView>`, `<Toaster>`, global layout slot
+### Phase 3 — Authentication Flow 🔐
+*   Add **Google Social Sign-In** mock buttons on `LoginView.vue` and `RegisterView.vue` for modern authentication support.
 
----
+### Phase 4 — Home Page (Revamped Hero) 🏠
+*   **HeroSection.vue:** Completely redesign.
+    *   Background: Solid light off-white cream (`#FAF7F2`) with no gradients.
+    *   Left: Tag badge with red pulsing dot `Now serving 120+ universities`. Headline: "The marketplace built for students." with "students." highlighted in primary purple. Description text.
+    *   Search: Large input search box with search icon and a solid purple "Search" button.
+    *   Features list: Checklist with checkmark icons (Verified .edu accounts only, Student-to-student, Average reply under 1 hour).
+    *   Right: Large student hero photography with rounded corners (`rounded-[2rem]`) and floating cards: "3 new listings near you in the last hour" and "Saved this month $847,200".
 
-## Phase 1 — Layout Components 🏗️
+### Phase 5 — Product Browsing & Search 🔍
+*   **ProductListView.vue / CategoryView.vue / SearchResultsView.vue:** Update to use a clean solid banner instead of gradients. Integrate the upgraded `FilterSidebar` on the left and the new `ProductCard` grid on the right.
+*   **ProductDetailView.vue:** Redesign to match the premium detail page.
+    *   Back to marketplace breadcrumbs link.
+    *   Left column: Large rounded product image (`rounded-3xl`).
+    *   Right column: Category badge, condition badge, title, price, description.
+    *   Details Grid: Cards displaying University, Faculty, Condition, and Pickup location with clean borders and icons.
+    *   Primary action button "Request to buy" / "Add to Cart" with solid purple background (no gradient).
+    *   Secondary action buttons: "Save" (heart) and "Share".
+    *   Seller Profile Card: Avatar, store name, university, rating stars, and "View profile" button.
 
-### Components
+### Phase 6 — Cart & Checkout Flow 🛒
+*   Add Coupon code validation and interactive input box in `CartSummary.vue` and `CheckoutView.vue`.
+*   Mock payment gateways (Stripe Elements fields, PayPal check out buttons) in checkout step 2.
 
-#### [NEW] `src/components/layout/AppNavbar.vue`
-- Logo, search bar (triggers search sheet/modal), nav links, mega menu trigger
-- Cart icon with item count badge (reactive from cart store)
-- Wishlist icon with count
-- User avatar / login button
-- Mobile hamburger → Sheet menu
-- Sticky with backdrop blur on scroll
-
-#### [NEW] `src/components/layout/AppFooter.vue`
-- Multi-column links
-- Newsletter signup (calls newsletter API / local composable)
-- Social links
-- Trust badges
-
-#### [NEW] `src/components/layout/AnnouncementBar.vue`
-- Dismissible top banner for promotions
-
-#### [NEW] `src/components/layout/MegaMenu.vue`
-- Fetches categories from store
-- Hover-activated full-width dropdown with category images
-
----
-
-## Phase 2 — Shared UI Component Library 🧩
-
-All components extend shadcn-vue primitives, never rewrite from scratch.
-
-### Navigation
-- [ ] `Breadcrumb.vue` — extends shadcn separator
-- [ ] `SearchBar.vue` — triggers suggestions from `/api/v1/search/suggestions`
-- [ ] `SearchSheet.vue` — full-screen mobile search overlay
-
-### Product Display
-- [ ] `ProductCard.vue` — image, title, price, rating, wishlist toggle, quick-add, badges
-- [ ] `ProductGrid.vue` — responsive grid wrapper with skeleton state
-- [ ] `ProductGallery.vue` — main image + thumbnail strip + zoom
-- [ ] `CategoryCard.vue` — image card with editorial typography
-- [ ] `BrandCard.vue`
-- [ ] `CollectionCard.vue`
-
-### Commerce
-- [ ] `PriceComponent.vue` — formatted price, original/sale, currency
-- [ ] `RatingComponent.vue` — star rating display + distribution bar
-- [ ] `QuantitySelector.vue` — +/- with min/max validation
-- [ ] `CartItem.vue` — product row in cart sidebar/page
-- [ ] `CartSummary.vue` — subtotal, shipping, tax, coupon, total
-- [ ] `WishlistButton.vue` — heart toggle with optimistic update
-
-### Feedback & State
-- [ ] `ReviewCard.vue` — user avatar, rating, verified badge, images
-- [ ] `SkeletonCard.vue`, `SkeletonGrid.vue`, `SkeletonProductDetail.vue`
-- [ ] `EmptyState.vue` — icon + message + CTA
-- [ ] `ErrorComponent.vue` — error boundary display
-- [ ] `Badges.vue` — Sale, New, Out of Stock, Featured, Verified badges
-
-### Layout Controls
-- [ ] `FilterSidebar.vue` — category tree, price range slider, rating filter, stock toggle
-- [ ] `SortDropdown.vue` — extends shadcn Select
-- [ ] `Pagination.vue` — extends shadcn Pagination
-
-### UI Primitives (extended from shadcn)
-- [ ] `AppButton.vue` — primary/secondary/ghost/destructive + loading state
-- [ ] `AppInput.vue` — with label, error, prefix/suffix icon slots
-- [ ] `AppDialog.vue` — extended Dialog with standard header/footer slots
-- [ ] `AppSheet.vue` — extended Sheet
-- [ ] `AppDropdown.vue` — extended DropdownMenu
-- [ ] `AppTabs.vue` — extended Tabs
-- [ ] `AppAccordion.vue` — extended Accordion
-- [ ] `ImageCarousel.vue` — embla carousel or CSS scroll snap
-- [ ] `CheckoutSteps.vue` — stepper component
+### Phase 7 — Account Flow 👤
+*   **OrderDetailView.vue:** Include a visual tracking stepper status timeline (Pending -> Confirmed -> Shipped -> Delivered) to visualize order status.
+*   **Write a Review Flow:** Add review submission popup allowing star rating selection, title, body, and mock review posting.
 
 ---
 
-## Phase 3 — Authentication Flow 🔐
+## Checked & Missing Customer Flows (Revamped Checklist)
 
-### Routes
-- `/auth/login` → `LoginView.vue`
-- `/auth/register` → `RegisterView.vue`
-- `/auth/verify-email` → `VerifyEmailView.vue`
+We checked the codebase and implementation status against the **Senior Backend Architect API contract** and identified the following missing customer-facing flows (not admin/vendor portals):
 
-### Components / Views
-- [ ] `LoginView.vue` — email/password form, "remember me", link to register
-- [ ] `RegisterView.vue` — firstName, lastName, email, phone, password, confirmPassword, acceptTerms
-- [ ] `VerifyEmailView.vue` — token from query param, auto-submits, shows result
-
-### Store: `src/stores/auth.store.ts`
-- `user`, `token`, `isAuthenticated` state
-- `login()`, `register()`, `logout()`, `fetchMe()` actions
-- Persisted via `localStorage` (token only)
-
-### Service: `src/services/api/auth.service.ts`
-- `login`, `register`, `logout`, `verifyEmail`, `resendVerification`, `changePassword`
-
-### Guards: `src/router/guards.ts`
-- `requireAuth` — redirects to login
-- `requireGuest` — redirects authenticated users away from login/register
-
----
-
-## Phase 4 — Home Page 🏠
-
-### Route: `/` → `HomeView.vue`
-
-### Sections (each its own component)
-- [ ] `HeroSection.vue` — premium marketing hero with product imagery, search, CTAs, floating badges, gradient bg
-- [ ] `AnnouncementBar.vue` (already in Phase 1)
-- [ ] `FeaturedCategoriesSection.vue` — uses `CategoryCard` grid, fetches `/api/v1/categories?featured=true`
-- [ ] `FeaturedProductsSection.vue` — horizontal scroll + grid, fetches `/api/v1/products/featured`
-- [ ] `PromoBannerSection.vue` — editorial banner with CTA
-- [ ] `TrendingProductsSection.vue` — fetches `sort=popularity`
-- [ ] `BrandsSection.vue` — brand logo strip/carousel
-- [ ] `NewsletterSection.vue` — email signup with animated input
-- [ ] `TrustBadgesSection.vue` — free shipping, returns, support icons
-
----
-
-## Phase 5 — Product Browsing & Search 🔍
-
-### Routes
-- `/products` → `ProductListView.vue` (all products with filters)
-- `/categories/:slug` → `CategoryView.vue`
-- `/products/:slug` → `ProductDetailView.vue`
-- `/search` → `SearchResultsView.vue`
-
-### Views
-- [ ] `ProductListView.vue` — FilterSidebar + SortDropdown + ProductGrid + Pagination
-- [ ] `CategoryView.vue` — category hero banner + ProductListView embedded
-- [ ] `SearchResultsView.vue` — query from URL param, filter chips, results or EmptyState
-- [ ] `ProductDetailView.vue`
-  - `ProductGallery.vue` — image grid + zoom
-  - Sticky purchase panel — price, quantity, add to cart, wishlist
-  - Tabs: Description / Specifications / Reviews
-  - `ReviewCard` list + `RatingComponent` summary
-  - Related products carousel
-
----
-
-## Phase 6 — Cart & Checkout Flow 🛒
-
-### Routes
-- `/cart` → `CartView.vue`
-- `/checkout` → `CheckoutView.vue` (multi-step)
-- `/checkout/success` → `OrderSuccessView.vue`
-
-### Cart
-- [ ] `CartView.vue` — full page cart with `CartItem` list + `CartSummary`
-- [ ] Cart drawer (Sheet) triggered from Navbar — `CartSheet.vue`
-- [ ] Coupon code input + validation (calls `/api/v1/cart/coupon`)
-- [ ] Guest cart — `guestCartId` in localStorage, merge on login
-
-### Checkout (multi-step with `CheckoutSteps.vue`)
-- [ ] Step 1 — Shipping Address form (Zod validated)
-- [ ] Step 2 — Payment Method selection (Stripe, PayPal, COD)
-- [ ] Step 3 — Order Review + Place Order
-- [ ] `OrderSuccessView.vue` — order number, confirmation message, CTA to orders
-
-### Store: `src/stores/cart.store.ts`
-- `items`, `summary`, `coupon`, `guestCartId`
-- All cart CRUD actions + merge on login
-
----
-
-## Phase 7 — Account (Profile) Flow 👤
-
-### Routes (all require auth via `requireAuth` guard)
-- `/account` → redirects to `/account/profile`
-- `/account/profile` → `ProfileView.vue`
-- `/account/orders` → `OrderListView.vue`
-- `/account/orders/:orderId` → `OrderDetailView.vue`
-- `/account/wishlist` → `WishlistView.vue`
-- `/account/reviews` → `MyReviewsView.vue`
-- `/account/security` → `SecurityView.vue` (change password)
-
-### Layout: `AccountLayout.vue`
-- Sidebar nav with avatar, links, logout
-
-### Views
-- [ ] `ProfileView.vue` — name, phone, address form + avatar upload
-- [ ] `OrderListView.vue` — paginated table with status badges + link to detail
-- [ ] `OrderDetailView.vue` — full order, status timeline, tracking info, cancel button
-- [ ] `WishlistView.vue` — ProductCard grid from wishlist + move-to-cart
-- [ ] `MyReviewsView.vue` — list of user's submitted reviews
-- [ ] `SecurityView.vue` — change password form
-
-### Store: `src/stores/wishlist.store.ts`
-- `items`, `itemCount`
-- `add()`, `remove()`, `moveToCart()` actions with optimistic UI
-
----
-
-## Phase 8 — Vendor Public Page 🏪
-
-### Route
-- `/vendors/:storeSlug` → `VendorStoreView.vue`
-
-### View
-- [ ] `VendorStoreView.vue` — banner, logo, store stats, verified badge + products grid
-
----
-
-## Phase 9 — Notifications 🔔
-
-- [ ] `NotificationsSheet.vue` — triggered from Navbar bell icon
-- [ ] Shows paginated notifications from `/api/v1/notifications`
-- [ ] Mark as read / mark all read
-- Unread badge count in Navbar
-
----
-
-## Phase 10 — Polish & Cross-Cutting Concerns ✨
-
-- [ ] Page transitions (Vue `<Transition>` with fade/slide)
-- [ ] `useHead()` / meta tags per route (vue-meta or `@vueuse/head`)
-- [ ] Skeleton loaders on all data-fetch views
-- [ ] `ErrorComponent.vue` for API failures
-- [ ] `EmptyState.vue` throughout
-- [ ] 404 page `NotFoundView.vue`
-- [ ] Toast notifications for all actions (shadcn Sonner/Toast)
-- [ ] Responsive audit — mobile menu, drawers, touch-friendly targets
-- [ ] Accessibility — `aria-label`, focus rings, keyboard nav
-- [ ] Image lazy loading (`loading="lazy"` + IntersectionObserver)
-- [ ] Performance — `defineAsyncComponent` for heavy views, `suspense` boundaries
-- [ ] Route-level code splitting (already automatic in Vue Router lazy imports)
-
----
-
-## API Service Layer Pattern
-
-Every service file follows the same pattern:
-
-```ts
-// src/services/api/products.service.ts
-import { http } from '../http'
-import type { Product, ProductListParams } from '@/types/product.types'
-import type { ApiResponse, PaginatedResponse } from '@/types/api.types'
-
-export const productsService = {
-  getAll: (params: ProductListParams) =>
-    http.get<PaginatedResponse<Product[]>>('/products', { params }),
-  getBySlug: (slug: string) =>
-    http.get<ApiResponse<{ product: Product }>>(`/products/${slug}`),
-  getFeatured: () =>
-    http.get<ApiResponse<{ products: Product[] }>>('/products/featured'),
-}
-```
-
----
-
-## Pinia Stores Overview
-
-| Store | State | Key Actions |
-|---|---|---|
-| `auth.store.ts` | user, token, isAuthenticated | login, register, logout, fetchMe |
-| `cart.store.ts` | items, summary, coupon, guestCartId | addItem, removeItem, updateQty, applyCoupon, mergeCart |
-| `wishlist.store.ts` | items, itemCount | add, remove, moveToCart |
-| `ui.store.ts` | cartSheetOpen, searchOpen, mobileMenuOpen | toggle actions |
-| `notifications.store.ts` | notifications, unreadCount | fetchAll, markRead, markAllRead |
-
----
-
-## shadcn-vue Components Used
-
-| shadcn Component | Extended As |
-|---|---|
-| `Button` | `AppButton` |
-| `Input` | `AppInput` |
-| `Card` | `ProductCard`, `CategoryCard` etc. |
-| `Dialog` | `AppDialog` |
-| `Sheet` | `CartSheet`, `SearchSheet`, `AppSheet` |
-| `DropdownMenu` | `SortDropdown`, `AppDropdown` |
-| `Tabs` | `AppTabs` (product detail tabs) |
-| `Accordion` | Filter groups in `FilterSidebar` |
-| `Skeleton` | `SkeletonCard`, `SkeletonGrid` |
-| `Badge` | `Badges` variants |
-| `Pagination` | `Pagination.vue` |
-| `Avatar` | User avatar in Navbar, ReviewCard |
-| `Separator` | Layout dividers |
-| `Select` | `SortDropdown`, country selects |
-| `Checkbox` | Filter checkboxes |
-| `Form` + `Label` | All forms |
-| `Toast` / `Sonner` | Action feedback |
-| `Tooltip` | Icon tooltips |
-| `Popover` | SearchBar suggestions |
-| `ScrollArea` | Cart sheet, mega menu |
+1.  **[ ] Write/Submit Product Review Flow:**
+    *   *Backend spec:* `POST /api/v1/reviews/product/:productId`
+    *   *Codebase state:* Description/Specs/Reviews tabs are present on the details page, but there is no mechanism for an authenticated customer to submit a rating and review for a purchased product.
+    *   *Enhancement:* Create a `ReviewSubmitDialog.vue` component that opens on the product details page or the order details page.
+2.  **[ ] Order Status Tracking Timeline:**
+    *   *Backend spec:* `GET /api/v1/orders/:id` contains order status (`pending`, `confirmed`, `shipped`, `delivered`, `cancelled`).
+    *   *Codebase state:* Order Detail View shows raw text status.
+    *   *Enhancement:* Create a visual horizontal tracker/timeline inside `OrderDetailView.vue` to show progress status.
+3.  **[ ] Coupon Discovery & Application:**
+    *   *Backend spec:* `/api/v1/cart/coupon`
+    *   *Codebase state:* Cart store supports `applyCoupon`, but checkout views lack clear UI fields to input code and display discount values.
+    *   *Enhancement:* Add a promo code input widget to `CartSummary.vue` and Checkout summary.
+4.  **[ ] Google OAuth Social Sign-In:**
+    *   *Backend spec:* `GET /api/v1/auth/google` redirect and callback.
+    *   *Codebase state:* Only email/password forms exist.
+    *   *Enhancement:* Integrate a mock Google sign-in button into the auth layouts to guide customers.
+5.  **[ ] Product Image Lightbox:**
+    *   *Codebase state:* Static image grid with thumbnail tabs.
+    *   *Enhancement:* Allow clicking on the main product image in `ProductGallery.vue` to open a full-screen image lightbox modal.
+6.  **[ ] Stripe & PayPal Mock Fields:**
+    *   *Backend spec:* `POST /api/v1/payments/stripe/initiate`
+    *   *Codebase state:* Payment methods are radio inputs.
+    *   *Enhancement:* Add a credit card form matching Stripe elements styles when "Credit Card" is selected, and a mock PayPal checkout button when "PayPal" is selected.
 
 ---
 
 ## Verification Plan
 
-### After each phase
-- Dev server runs without errors (`npm run dev`)
-- TypeScript compiles clean (`vue-tsc --noEmit`)
-- All routes load without white screen
-- API calls hit correct endpoints (verified via Network tab)
-- UI matches theme tokens (no plain blue, correct fonts)
+### Design & Color Verification
+- Verify `style.css` variables load the saturated purple (`oklch(0.51 0.22 291)`) and cream bg (`#FAF7F1`).
+- Audit components for class names like `gradient-primary` or `gradient-hero` and ensure they utilize solid background colors.
+- Check navbar for inline search input and "Sell an item" primary button.
+- Check product cards: rounded design, top-left badges, bottom seller avatar/school row, price layout.
 
-### Manual UI checks
-- Responsive at 375px, 768px, 1280px, 1920px
-- Hover animations smooth (no jank)
-- Cart count updates optimistically
-- Wishlist heart toggles without page reload
-- Forms validate before submitting
-- Loading skeletons appear before data
-- Empty states show when list is empty
-- Error state shows on API failure
-
----
-
-## Open Questions
-
-> [!NOTE]
-> 1. Should the Stripe payment step be a real Stripe Elements integration or a mocked UI? (Backend is ready per spec)
-> 2. For guest checkout — should it redirect to login or allow full checkout without account?
-> 3. Should the search bar suggestions dropdown appear inline in the Navbar or as a full overlay?
-
+### Customer Flows Verification
+- Open Review submission dialog, input rating & review details, check mock submission toast.
+- Navigate to order detail page, view the status tracking timeline.
+- Verify coupon discount displays on Cart and Checkout totals.
+- Verify checkout payment step shows credit card forms.

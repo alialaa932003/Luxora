@@ -46,18 +46,16 @@ onMounted(() => {
     <AppNavbar />
 
     <main class="container mx-auto px-4 lg:px-8 py-10">
-      <!-- Header -->
-      <div class="mb-8">
-        <div class="flex items-center gap-3 mb-2">
-          <Search :size="22" class="text-muted-foreground" />
-          <p class="text-sm text-muted-foreground">Search results for</p>
-        </div>
-        <h1 class="text-3xl font-bold text-foreground tracking-tight">
+      <!-- Solid Page Header Banner (No Gradients!) -->
+      <div class="bg-primary/5 rounded-[2rem] border border-border/30 px-6 py-8 md:px-12 md:py-10 mb-10 text-center md:text-left flex flex-col gap-2">
+        <p class="text-xs font-extrabold uppercase tracking-widest text-primary flex items-center gap-1 justify-center md:justify-start">
+          <Search :size="12" /> Search Results
+        </p>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">
           "{{ query }}"
         </h1>
-        <p class="text-muted-foreground mt-2 text-sm">
-          <span class="font-semibold text-foreground">{{ results.length }}</span>
-          {{ results.length === 1 ? 'result' : 'results' }} found
+        <p class="text-sm text-muted-foreground">
+          Found <span class="font-bold text-foreground">{{ results.length }}</span> {{ results.length === 1 ? 'product' : 'products' }}
         </p>
       </div>
 

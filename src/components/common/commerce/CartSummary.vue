@@ -84,7 +84,7 @@ async function removeCoupon() {
         <button
           @click="applyCoupon"
           :disabled="applyingCoupon || !couponCode.trim()"
-          class="px-4 py-2 text-sm font-semibold rounded-xl gradient-primary text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          class="px-4 py-2 text-sm font-semibold rounded-xl bg-primary text-white hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150"
         >
           {{ applyingCoupon ? '…' : 'Apply' }}
         </button>
@@ -104,8 +104,7 @@ async function removeCoupon() {
     <RouterLink
       v-if="props.showCheckoutButton"
       to="/checkout"
-      class="block w-full text-center py-3 rounded-xl text-white font-semibold text-sm transition-all duration-200 mt-2"
-      style="background: linear-gradient(135deg, oklch(0.32 0.09 295), oklch(0.45 0.12 280)); box-shadow: 0 4px 14px oklch(0.32 0.09 295 / 0.3);"
+      class="block w-full text-center py-3 rounded-xl bg-primary text-white hover:opacity-90 font-semibold text-sm transition-all duration-150 shadow-sm hover:-translate-y-0.5 mt-2"
     >
       Proceed to Checkout
     </RouterLink>
