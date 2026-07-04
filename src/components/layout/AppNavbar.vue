@@ -71,7 +71,7 @@ const navLinks = [
           </div>
           <span
             class="font-bold text-xl tracking-tight text-foreground hidden sm:block"
-            >Lumina</span
+            >Luxora</span
           >
         </RouterLink>
 

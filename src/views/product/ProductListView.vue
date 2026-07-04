@@ -10,7 +10,8 @@ import SortDropdown from "@/components/common/display/SortDropdown.vue";
 import Pagination from "@/components/common/display/Pagination.vue";
 import SkeletonGrid from "@/components/common/display/SkeletonGrid.vue";
 import EmptyState from "@/components/common/feedback/EmptyState.vue";
-import { dummyProducts } from "@/lib/dummyData";
+import { productsService } from "@/services/api/products.service";
+import type { Product } from "@/types/product.types";
 
 const route = useRoute();
 const router = useRouter();
@@ -36,39 +37,38 @@ function resetFilters() {
   inStockOnly.value = false;
 }
 
-const products = computed(() => {
-  let result = [...dummyProducts];
-  if (inStockOnly.value) result = result.filter((p) => p.stock > 0);
-  if (selectedCategories.value.length)
-    result = result.filter((p) =>
-      selectedCategories.value.includes(p.category.slug),
-    );
-  result = result.filter(
-    (p) => p.price >= priceMin.value && p.price <= priceMax.value,
-  );
-  if (selectedRating.value)
-    result = result.filter((p) => p.rating.average >= selectedRating.value!);
-  if (sort.value === "price_asc") result.sort((a, b) => a.price - b.price);
-  else if (sort.value === "price_desc")
-    result.sort((a, b) => b.price - a.price);
-  else if (sort.value === "rating")
-    result.sort((a, b) => b.rating.average - a.rating.average);
-  else if (sort.value === "newest")
-    result.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  return result;
+const products = ref<Product[]>([]);
+const totalProducts = ref(0);
+const totalPages = ref(1);
+
+const fetchProducts = async () => {
+  loading.value = true;
+  try {
+    const res = await productsService.getAll({
+      page: page.value,
+      limit: 12,
+      sort: sort.value as any,
+      minPrice: priceMin.value > 0 ? priceMin.value : undefined,
+      maxPrice: priceMax.value < 5000 ? priceMax.value : undefined,
+      inStock: inStockOnly.value ? true : undefined,
+      category: selectedCategories.value.length ? selectedCategories.value.join(',') : undefined
+    });
+    
+    products.value = res.data.data.products;
+    totalProducts.value = res.data.meta.total;
+    totalPages.value = Math.ceil(res.data.meta.total / (res.data.meta.limit || 12));
+  } catch (error) {
+    console.error("Failed to load products", error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+watch([page, sort, priceMin, priceMax, inStockOnly, selectedCategories], () => {
+  fetchProducts();
 });
 
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(products.value.length / 12)),
-);
-const paginatedProducts = computed(() => {
-  const start = (page.value - 1) * 12;
-  return products.value.slice(start, start + 12);
-});
-
-watch(sort, () => {
-  page.value = 1;
-});
+fetchProducts();
 </script>
 
 <template>
@@ -112,7 +112,7 @@ watch(sort, () => {
           <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
             <p class="text-sm text-muted-foreground">
               <span class="font-semibold text-foreground">{{
-                products.length
+                totalProducts
               }}</span>
               products
             </p>
@@ -146,19 +146,19 @@ watch(sort, () => {
 
           <SkeletonGrid v-if="loading" />
           <EmptyState
-            v-else-if="!paginatedProducts.length"
+            v-else-if="!products.length"
             title="No products found"
             description="Try adjusting your filters or browse other categories."
             action-label="Clear Filters"
             @action="resetFilters"
           />
-          <ProductGrid v-else :products="paginatedProducts" />
+          <ProductGrid v-else :products="products" />
 
           <div v-if="totalPages > 1" class="mt-10">
             <Pagination
               v-model:page="page"
               :total-pages="totalPages"
-              :total="products.length"
+              :total="totalProducts"
             />
           </div>
         </div>

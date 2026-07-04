@@ -5,7 +5,6 @@ import { ArrowRight } from '@lucide/vue'
 import ProductGrid from '@/components/common/product/ProductGrid.vue'
 import { useQuery } from '@tanstack/vue-query'
 import { productsService } from '@/services/api/products.service'
-import { dummyProducts } from '@/lib/dummyData'
 
 const { data, isLoading } = useQuery({
   queryKey: ['products', 'trending'],

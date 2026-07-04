@@ -46,7 +46,7 @@ onMounted(async () => {
     route.params.slug as string,
   );
   if (category.value) {
-    document.title = `${category.value.name} — Lumina`;
+    document.title = `${category.value.name} - Luxora`;
   }
   await fetchProducts();
   loading.value = false;

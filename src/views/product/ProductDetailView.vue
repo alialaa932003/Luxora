@@ -1,35 +1,33 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useRoute, useRouter, RouterLink } from "vue-router";
-import {
-  ShoppingCart,
-  Heart,
-  Share2,
-  Store,
-  Loader2,
-  ChevronLeft,
-  GraduationCap,
-  Building2,
-  ShieldCheck,
-  MapPin,
-  Star,
-} from "lucide-vue-next";
-import AppNavbar from "@/components/layout/AppNavbar.vue";
-import AppFooter from "@/components/layout/AppFooter.vue";
-import ProductGallery from "@/components/common/product/ProductGallery.vue";
-import ProductGrid from "@/components/common/product/ProductGrid.vue";
-import QuantitySelector from "@/components/common/commerce/QuantitySelector.vue";
 import PriceComponent from "@/components/common/commerce/PriceComponent.vue";
+import QuantitySelector from "@/components/common/commerce/QuantitySelector.vue";
 import RatingComponent from "@/components/common/feedback/RatingComponent.vue";
 import ReviewCard from "@/components/common/feedback/ReviewCard.vue";
-import WishlistButton from "@/components/common/commerce/WishlistButton.vue";
 import ReviewSubmitDialog from "@/components/common/feedback/ReviewSubmitDialog.vue";
+import ProductGallery from "@/components/common/product/ProductGallery.vue";
+import ProductGrid from "@/components/common/product/ProductGrid.vue";
+import AppFooter from "@/components/layout/AppFooter.vue";
+import AppNavbar from "@/components/layout/AppNavbar.vue";
+import { useToast } from "@/composables/useToast";
+import { productsService } from "@/services/api/products.service";
+import { useAuthStore } from "@/stores/auth.store";
 import { useCartStore } from "@/stores/cart.store";
 import { useWishlistStore } from "@/stores/wishlist.store";
-import { useAuthStore } from "@/stores/auth.store";
-import { useToast } from "@/composables/useToast";
-import { dummyProducts } from "@/lib/dummyData";
 import type { Product } from "@/types/product.types";
+import {
+  CheckCircle2,
+  ChevronLeft,
+  Heart,
+  Loader2,
+  Share2,
+  ShieldCheck,
+  ShoppingCart,
+  Star,
+  Store,
+  Truck
+} from "lucide-vue-next";
+import { computed, onMounted, ref, watch } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
@@ -68,20 +66,42 @@ const reviewsList = ref([
   },
 ]);
 
+async function fetchProductDetails(slug: string) {
+  loading.value = true;
+  try {
+    const res = await productsService.getBySlug(slug);
+    if (res.data?.success && res.data?.data?.product) {
+      product.value = res.data.data.product;
+      document.title = `${product.value.name} - Luxora`;
+    } else {
+      router.push({ name: "not-found" });
+    }
+  } catch (err) {
+    console.error("Error fetching product details:", err);
+    router.push({ name: "not-found" });
+  } finally {
+    loading.value = false;
+  }
+}
+
+watch(
+  () => route.params.slug,
+  (newSlug) => {
+    if (newSlug) {
+      fetchProductDetails(newSlug as string);
+    }
+  }
+);
+
 onMounted(() => {
   const slug = route.params.slug as string;
-  const found = dummyProducts.find((p) => p.slug === slug);
-  if (found) {
-    product.value = found;
-    document.title = `${found.name} — Luxora`;
-  } else {
-    router.push({ name: "not-found" });
+  if (slug) {
+    fetchProductDetails(slug);
   }
-  loading.value = false;
 });
 
 const relatedProducts = computed(() =>
-  dummyProducts.filter((p) => p.id !== product.value?.id).slice(0, 4),
+  []
 );
 
 const isOutOfStock = computed(() => product.value?.stock === 0);

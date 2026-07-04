@@ -8,7 +8,7 @@ import { useWishlistStore } from '@/stores/wishlist.store'
 const wishlistStore = useWishlistStore()
 
 onMounted(() => {
-  document.title = 'Wishlist — Luxora'
+  document.title = 'Wishlist - Luxora'
 })
 </script>
 

@@ -14,7 +14,7 @@ export function setupGuards(router: Router) {
     }
 
     if (to.meta.title) {
-      document.title = `${to.meta.title} — Lumina`
+      document.title = `${to.meta.title} - Luxora`;
     }
 
     return true

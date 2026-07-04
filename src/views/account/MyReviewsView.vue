@@ -4,7 +4,7 @@ import { Star } from 'lucide-vue-next'
 import EmptyState from '@/components/common/feedback/EmptyState.vue'
 import ReviewCard from '@/components/common/feedback/ReviewCard.vue'
 
-onMounted(() => { document.title = 'My Reviews — Luxora' })
+onMounted(() => { document.title = 'My Reviews - Luxora' })
 
 const reviews = [
   {

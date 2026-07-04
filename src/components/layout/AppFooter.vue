@@ -77,7 +77,7 @@ const trustBadges = [
               <span class="text-white font-bold">L</span>
             </div>
             <span class="font-bold text-2xl text-background tracking-tight"
-              >Lumina</span
+              >Luxora</span
             >
           </RouterLink>
           <p class="text-background/60 text-sm leading-relaxed max-w-xs mb-6">
@@ -88,7 +88,7 @@ const trustBadges = [
           <div class="flex flex-col gap-3 mb-8">
             <div class="flex items-center gap-3 text-sm text-background/60">
               <Mail :size="15" class="text-background/40 shrink-0" />
-              <span>hello@lumina.shop</span>
+              <span>hello@luxora.shop</span>
             </div>
             <div class="flex items-center gap-3 text-sm text-background/60">
               <Phone :size="15" class="text-background/40 shrink-0" />
@@ -138,7 +138,7 @@ const trustBadges = [
         class="container mx-auto px-4 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4"
       >
         <p class="text-xs text-background/40">
-          &copy; {{ new Date().getFullYear() }} Lumina. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} Luxora. All rights reserved.
         </p>
         <div class="flex items-center gap-4 text-xs text-background/40">
           <a href="#" class="hover:text-background/70 transition-colors"

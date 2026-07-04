@@ -13,7 +13,7 @@ import TrustBadgesSection from './sections/TrustBadgesSection.vue'
 import NewsletterSection from './sections/NewsletterSection.vue'
 
 // Title
-onMounted(() => { document.title = 'Luxora — Premium Shopping Experience' })
+onMounted(() => { document.title = 'Luxora - Premium Shopping Experience' })
 </script>
 
 <template>

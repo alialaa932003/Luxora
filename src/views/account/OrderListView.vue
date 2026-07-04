@@ -22,7 +22,7 @@ const dummyOrders = [
 
 onMounted(() => {
   setTimeout(() => { loading.value = false }, 400)
-  document.title = 'My Orders — Luxora'
+  document.title = 'My Orders - Luxora'
 })
 
 function formatDate(d: string) {

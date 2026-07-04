@@ -126,7 +126,7 @@ onMounted(() => {
   setTimeout(() => {
     loading.value = false;
     if (order.value) {
-      document.title = `Order ${order.value.orderNumber} — Lumina`;
+      document.title = `Order ${order.value.orderNumber} - Luxora`;
     }
   }, 350);
 });

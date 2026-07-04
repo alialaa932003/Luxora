@@ -11,7 +11,7 @@ const categories = ref<Category[]>([]);
 const loading = ref(true);
 
 onMounted(async () => {
-  document.title = "Browse Categories — Lumina";
+  document.title = "Browse Categories - Luxora";
   categories.value = await categoriesService.getAll();
   loading.value = false;
 });

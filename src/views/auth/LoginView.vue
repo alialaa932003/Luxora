@@ -74,7 +74,7 @@ const highlights = [
     >
       <img
         src="/auth-hero.png"
-        alt="Lumina premium shopping experience"
+        alt="Luxora premium shopping experience"
         class="absolute inset-0 w-full h-full object-cover object-center"
       />
       <div class="absolute inset-0 bg-primary/80" />
@@ -87,7 +87,7 @@ const highlights = [
             <span class="font-bold text-lg text-white">L</span>
           </div>
           <span class="font-bold text-xl text-white tracking-tight"
-            >Lumina</span
+            >Luxora</span
           >
         </RouterLink>
 
@@ -99,7 +99,7 @@ const highlights = [
               class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"
             />
             <span class="text-xs text-white/80 font-medium"
-              >Welcome back to Lumina</span
+              >Welcome back to Luxora</span
             >
           </div>
           <h2
@@ -134,7 +134,7 @@ const highlights = [
           </div>
         </div>
 
-        <p class="text-white/40 text-xs">© 2026 Lumina. All rights reserved.</p>
+        <p class="text-white/40 text-xs">© 2026 Luxora. All rights reserved.</p>
       </div>
     </div>
 
@@ -148,7 +148,7 @@ const highlights = [
           >
             <span class="text-white font-bold">L</span>
           </div>
-          <span class="font-bold text-xl text-foreground">Lumina</span>
+          <span class="font-bold text-xl text-foreground">Luxora</span>
         </RouterLink>
 
         <div class="mb-8">
@@ -163,7 +163,7 @@ const highlights = [
             Sign in to your<br />account
           </h1>
           <p class="text-muted-foreground text-sm mt-3">
-            New to Lumina?
+            New to Luxora?
             <RouterLink
               to="/auth/register"
               class="font-semibold underline underline-offset-2 text-primary"

@@ -65,7 +65,7 @@ function goToCheckout() {
       </template>
 
       <template v-else>
-        <ScrollArea class="flex-1 px-6">
+        <ScrollArea class="flex-1 px-6 min-h-0">
           <div class="py-2">
             <CartItem
               v-for="item in cartStore.items"

@@ -30,7 +30,7 @@ async function addToCart() {
   if (isOutOfStock.value || adding.value) return;
   adding.value = true;
   try {
-    await cartStore.addItem({ productId: props.product.id, quantity: 1 });
+    await cartStore.addItem({ productId: (props.product as any)._id || props.product.id, quantity: 1 });
     toast({ title: "Added to cart", description: props.product.name });
   } finally {
     adding.value = false;
@@ -90,7 +90,7 @@ async function addToCart() {
       </div>
 
       <div class="absolute top-3 right-3 z-10">
-        <WishlistButton :productId="product.id" size="sm" />
+        <WishlistButton :productId="(product as any)._id || product.id" size="sm" />
       </div>
     </div>
 

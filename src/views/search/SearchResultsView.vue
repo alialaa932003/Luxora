@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import { Search } from "lucide-vue-next";
 import AppNavbar from "@/components/layout/AppNavbar.vue";
@@ -9,7 +9,8 @@ import SortDropdown from "@/components/common/display/SortDropdown.vue";
 import SkeletonGrid from "@/components/common/display/SkeletonGrid.vue";
 import EmptyState from "@/components/common/feedback/EmptyState.vue";
 import Pagination from "@/components/common/display/Pagination.vue";
-import { dummyProducts } from "@/lib/dummyData";
+import { productsService } from "@/services/api/products.service";
+import type { Product } from "@/types/product.types";
 
 const route = useRoute();
 const loading = ref(true);
@@ -18,35 +19,38 @@ const page = ref(1);
 
 const query = computed(() => (route.query.q as string) || "");
 
-const results = computed(() => {
-  if (!query.value) return [];
-  const q = query.value.toLowerCase();
-  let filtered = dummyProducts.filter(
-    (p) =>
-      p.name.toLowerCase().includes(q) ||
-      p.description.toLowerCase().includes(q) ||
-      p.category.name.toLowerCase().includes(q),
-  );
-  if (sort.value === "price_asc") filtered.sort((a, b) => a.price - b.price);
-  else if (sort.value === "price_desc")
-    filtered.sort((a, b) => b.price - a.price);
-  else if (sort.value === "rating")
-    filtered.sort((a, b) => b.rating.average - a.rating.average);
-  return filtered;
+const results = ref<Product[]>([]);
+const totalResults = ref(0);
+const totalPages = ref(1);
+
+const fetchResults = async () => {
+  loading.value = true;
+  try {
+    const res = await productsService.getAll({
+      q: query.value,
+      sort: sort.value,
+      page: page.value,
+      limit: 12
+    });
+    
+    results.value = res.data.data.products;
+    totalResults.value = res.data.meta.total;
+    totalPages.value = Math.ceil(res.data.meta.total / (res.data.meta.limit || 12));
+  } catch (error) {
+    console.error("Failed to load search results", error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+watch([query, sort, page], () => {
+  document.title = `Search: "${query.value}" - Luxora`;
+  fetchResults();
 });
 
-const totalPages = computed(() =>
-  Math.max(1, Math.ceil(results.value.length / 12)),
-);
-const paginatedResults = computed(() =>
-  results.value.slice((page.value - 1) * 12, page.value * 12),
-);
-
 onMounted(() => {
-  setTimeout(() => {
-    loading.value = false;
-  }, 400);
-  document.title = `Search: "${query.value}" — Luxora`;
+  document.title = `Search: "${query.value}" - Luxora`;
+  fetchResults();
 });
 </script>
 
@@ -70,8 +74,8 @@ onMounted(() => {
         </h1>
         <p class="text-sm text-muted-foreground">
           Found
-          <span class="font-bold text-foreground">{{ results.length }}</span>
-          {{ results.length === 1 ? "product" : "products" }}
+          <span class="font-bold text-foreground">{{ totalResults }}</span>
+          {{ totalResults === 1 ? "product" : "products" }}
         </p>
       </div>
 
@@ -94,13 +98,13 @@ onMounted(() => {
         action-to="/products"
       />
 
-      <ProductGrid v-else :products="paginatedResults" />
+      <ProductGrid v-else :products="results" />
 
       <div v-if="totalPages > 1" class="mt-10">
         <Pagination
           v-model:page="page"
           :total-pages="totalPages"
-          :total="results.length"
+          :total="totalResults"
         />
       </div>
     </main>

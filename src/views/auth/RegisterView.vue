@@ -83,7 +83,7 @@ const benefits = [
     >
       <img
         src="/auth-hero.png"
-        alt="Lumina premium shopping experience"
+        alt="Luxora premium shopping experience"
         class="absolute inset-0 w-full h-full object-cover object-center"
       />
       <div class="absolute inset-0 bg-primary/80" />
@@ -96,7 +96,7 @@ const benefits = [
             <span class="font-bold text-lg text-white">L</span>
           </div>
           <span class="font-bold text-xl text-white tracking-tight"
-            >Lumina</span
+            >Luxora</span
           >
         </RouterLink>
 
@@ -121,7 +121,7 @@ const benefits = [
             >
           </h2>
           <p class="text-white/70 text-sm leading-relaxed mb-8">
-            Join Lumina and discover a world of curated premium products,
+            Join Luxora and discover a world of curated premium products,
             exclusive deals, and seamless checkouts.
           </p>
 
@@ -147,7 +147,7 @@ const benefits = [
           </div>
         </div>
 
-        <p class="text-white/40 text-xs">© 2026 Lumina. All rights reserved.</p>
+        <p class="text-white/40 text-xs">© 2026 Luxora. All rights reserved.</p>
       </div>
     </div>
 
@@ -161,7 +161,7 @@ const benefits = [
           >
             <span class="text-white font-bold">L</span>
           </div>
-          <span class="font-bold text-xl text-foreground">Lumina</span>
+          <span class="font-bold text-xl text-foreground">Luxora</span>
         </RouterLink>
 
         <Transition name="fade">
