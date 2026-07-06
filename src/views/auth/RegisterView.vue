@@ -79,7 +79,7 @@ const onSubmit = form.handleSubmit(async (formValues) => {
     if (activeRole.value === 'customer') {
       const res = await authStore.register(values) as any;
       if (res.data?.verificationUrl) {
-        window.open(res.data.verificationUrl, '_blank')
+        window.location.href = res.data.verificationUrl
       }
       registered.value = true
     } else {
@@ -98,7 +98,7 @@ const onSubmit = form.handleSubmit(async (formValues) => {
         businessPhone: values.businessPhone || undefined,
       }) as any;
       if (res.data?.verificationUrl) {
-        window.open(res.data.verificationUrl, '_blank')
+        window.location.href = res.data.verificationUrl
       }
       sellerRegistered.value = true
     }
