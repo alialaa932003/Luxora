@@ -77,14 +77,13 @@ const onSubmit = form.handleSubmit(async (formValues) => {
   loading.value = true;
   try {
     if (activeRole.value === 'customer') {
-      const res = await authStore.register(values)
+      const res = await authStore.register(values) as any;
       if (res.data?.verificationUrl) {
         window.open(res.data.verificationUrl, '_blank')
       }
       registered.value = true
     } else {
-      // Single request — role + store info all go together
-      await authStore.register({
+      const res = await authStore.register({
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
@@ -97,7 +96,7 @@ const onSubmit = form.handleSubmit(async (formValues) => {
         storeDescription: values.storeDescription || undefined,
         businessEmail: values.businessEmail || undefined,
         businessPhone: values.businessPhone || undefined,
-      })
+      }) as any;
       if (res.data?.verificationUrl) {
         window.open(res.data.verificationUrl, '_blank')
       }
