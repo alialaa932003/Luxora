@@ -39,7 +39,7 @@ async function fetchProducts(showSpinner = true) {
       page: page.value,
       limit,
       search: search.value,
-    })
+    } as any)
   } finally {
     if (showSpinner) {
       loading.value = false

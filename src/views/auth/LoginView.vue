@@ -313,7 +313,7 @@ const highlights = [
                 <FormControl>
                   <Checkbox
                     :checked="value"
-                    @update:checked="(checked) => form.setFieldValue('rememberMe', checked)"
+                    @update:checked="(checked: boolean) => form.setFieldValue('rememberMe', checked)"
                     id="rememberMe"
                     class="data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-background"
                   />

@@ -17,7 +17,7 @@ const search = ref('')
 const isModalOpen = ref(false)
 const modalMode = ref<'create' | 'edit'>('create')
 const actionLoading = ref(false)
-const currentCategory = ref<Partial<Category>>({
+const currentCategory = ref<any>({
   name: '',
   description: '',
   icon: 'Package'
@@ -156,7 +156,7 @@ async function handleDelete(slug: string) {
           </div>
         </div>
         <h3 class="font-semibold text-lg" style="color: oklch(0.14 0.02 280);">{{ cat.name }}</h3>
-        <p class="text-sm mt-1 flex-1" style="color: oklch(0.52 0.015 285);">{{ cat.description || 'No description provided.' }}</p>
+        <p class="text-sm mt-1 flex-1" style="color: oklch(0.52 0.015 285);">{{ (cat as any).description || 'No description provided.' }}</p>
         <div class="mt-4 pt-4 border-t border-gray-100">
           <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Slug: </span>
           <span class="text-xs font-mono bg-gray-50 px-2 py-0.5 rounded text-gray-600">{{ cat.slug }}</span>

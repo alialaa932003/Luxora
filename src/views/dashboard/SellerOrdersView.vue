@@ -28,7 +28,7 @@ async function fetchOrders(showSpinner = true) {
       page: page.value,
       limit,
       search: search.value,
-    })
+    } as any)
   } finally {
     if (showSpinner === true) {
       loading.value = false
@@ -55,7 +55,7 @@ async function changeStatus(orderId: string, newStatus: string) {
 
   actionLoadingId.value = orderId
   try {
-    await sellerService.updateOrderStatus(vendorId.value, orderId, newStatus)
+    await (sellerService as any).updateOrderStatus(vendorId.value, orderId, newStatus)
     await fetchOrders(false)
   } catch (error) {
     order.status = previousStatus

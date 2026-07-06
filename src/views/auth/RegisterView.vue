@@ -69,10 +69,11 @@ const form = useForm({
     storeDescription: '',
     businessEmail: '',
     businessPhone: '',
-  },
+  } as any,
 });
 
-const onSubmit = form.handleSubmit(async (values) => {
+const onSubmit = form.handleSubmit(async (formValues) => {
+  const values = formValues as any;
   loading.value = true;
   try {
     if (activeRole.value === 'customer') {

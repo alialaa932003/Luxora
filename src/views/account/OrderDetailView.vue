@@ -56,7 +56,7 @@ const steps = [
 
 const currentStepIndex = computed(() => {
   if (!order.value) return 0;
-  const status = order.value.status;
+  const status = order.value.status as any;
   if (status === "pending") return 0;
   if (status === "processing" || status === "confirmed") return 1;
   if (status === "shipped") return 2;
@@ -117,11 +117,11 @@ function cancelOrder() {
               <span
                 class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold capitalize leading-none"
                 :class="
-                  order.status === 'delivered'
+                  (order.status as any) === 'delivered'
                     ? 'bg-emerald-100 text-emerald-700'
-                    : order.status === 'cancelled'
+                    : (order.status as any) === 'cancelled'
                       ? 'bg-red-100 text-red-700'
-                      : order.status === 'shipped'
+                      : (order.status as any) === 'shipped'
                         ? 'bg-violet-100 text-violet-700'
                         : 'bg-amber-100 text-amber-700'
                 "
@@ -140,7 +140,7 @@ function cancelOrder() {
 
         <div class="flex items-center gap-2 flex-wrap self-start sm:self-center">
           <button
-            v-if="order.status === 'pending'"
+            v-if="(order.status as any) === 'pending'"
             @click="cancelOrder"
             class="px-4.5 py-2.5 rounded-xl border border-red-200 text-red-600 bg-red-50/50 hover:bg-red-50 hover:text-red-700 font-bold text-xs transition-colors cursor-pointer"
           >
@@ -226,8 +226,8 @@ function cancelOrder() {
           </h2>
           <div class="divide-y divide-border/35">
             <div
-              v-for="item in order.items"
-              :key="(item as any)._id || item.id"
+              v-for="item in (order.items as any[])"
+              :key="item._id || item.id"
               class="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
             >
               <div class="flex items-center gap-3.5">
@@ -277,8 +277,8 @@ function cancelOrder() {
                 class="text-xs text-foreground font-semibold leading-relaxed"
               >
                 <p class="font-bold">
-                  {{ order.shippingAddress?.firstName }}
-                  {{ order.shippingAddress?.lastName }}
+                  {{ (order.shippingAddress as any)?.firstName }}
+                  {{ (order.shippingAddress as any)?.lastName }}
                 </p>
                 <p class="text-muted-foreground mt-0.5">
                   {{ order.shippingAddress?.addressLine1 }}

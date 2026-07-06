@@ -14,6 +14,7 @@ const props = withDefaults(
 import PriceComponent from "./PriceComponent.vue";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/stores/cart.store";
+import { useAuthStore } from "@/stores/auth.store";
 import { useToast } from "@/composables/useToast";
 
 const cartStore = useCartStore();

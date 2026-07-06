@@ -62,11 +62,11 @@ async function placeOrder() {
       const res = await paymentService.createStripeCheckoutSession({
         cartId: cartStore.cart.id,
         shippingAddress: address as any,
-      });
+      } as any);
       window.location.href = res.data.data.url;
     } else {
       const res = await ordersService.place({
-        paymentMethod: "cash_on_delivery",
+        paymentMethod: "cash_on_delivery" as any,
         shippingAddress: address,
       });
       cartStore.clearCart();
