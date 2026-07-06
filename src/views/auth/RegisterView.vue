@@ -77,7 +77,10 @@ const onSubmit = form.handleSubmit(async (formValues) => {
   loading.value = true;
   try {
     if (activeRole.value === 'customer') {
-      await authStore.register(values)
+      const res = await authStore.register(values)
+      if (res.data?.verificationUrl) {
+        window.open(res.data.verificationUrl, '_blank')
+      }
       registered.value = true
     } else {
       // Single request — role + store info all go together
@@ -95,6 +98,9 @@ const onSubmit = form.handleSubmit(async (formValues) => {
         businessEmail: values.businessEmail || undefined,
         businessPhone: values.businessPhone || undefined,
       })
+      if (res.data?.verificationUrl) {
+        window.open(res.data.verificationUrl, '_blank')
+      }
       sellerRegistered.value = true
     }
   } catch (err: unknown) {
