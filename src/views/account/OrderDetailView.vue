@@ -1,18 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
-import { useRoute, useRouter, RouterLink } from "vue-router";
-import {
-  Package,
-  ChevronLeft,
-  MapPin,
-  Truck,
-  Calendar,
-  ShoppingBag,
-  XCircle,
-  CheckCircle2,
-} from "lucide-vue-next";
-import { useToast } from "@/composables/useToast";
-import PriceComponent from "@/components/common/commerce/PriceComponent.vue";
+import { ref, onMounted, computed } from 'vue'
+import { useRoute, useRouter, RouterLink } from 'vue-router'
+import { Package, ChevronLeft, MapPin, Truck, Calendar, ShoppingBag, XCircle, CheckCircle2, Loader2 } from 'lucide-vue-next'
+import { useToast } from '@/composables/useToast'
+import PriceComponent from '@/components/common/commerce/PriceComponent.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -233,13 +224,15 @@ function cancelOrder() {
           </div>
         </div>
 
-        <button
-          v-if="order.status === 'pending'"
-          @click="cancelOrder"
-          class="px-4.5 py-2.5 rounded-xl border border-red-200 text-red-600 bg-red-50/50 hover:bg-red-50 hover:text-red-700 font-bold text-xs transition-colors self-start sm:self-center"
-        >
-          Cancel Order
-        </button>
+        <div class="flex items-center gap-2 flex-wrap self-start sm:self-center">
+          <button
+            v-if="order.status === 'pending'"
+            @click="cancelOrder"
+            class="px-4.5 py-2.5 rounded-xl border border-red-200 text-red-600 bg-red-50/50 hover:bg-red-50 hover:text-red-700 font-bold text-xs transition-colors cursor-pointer"
+          >
+            Cancel Order
+          </button>
+        </div>
       </div>
 
       <div
@@ -428,5 +421,6 @@ function cancelOrder() {
         </div>
       </div>
     </div>
+    
   </div>
 </template>

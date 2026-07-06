@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import { RouterLink, useRouter } from "vue-router";
-import {
-  ShoppingBag,
-  Heart,
-  Bell,
-  Search,
-  Menu,
-  X,
-  User,
-  Sparkles,
-} from "lucide-vue-next";
-import { useAuthStore } from "@/stores/auth.store";
-import { useCartStore } from "@/stores/cart.store";
-import { useWishlistStore } from "@/stores/wishlist.store";
-import { useUiStore } from "@/stores/ui.store";
-import { useNotificationsStore } from "@/stores/notifications.store";
+import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import { ShoppingBag, Heart, Bell, Search, Menu, X, User, Sparkles, LayoutDashboard } from 'lucide-vue-next'
+import { useAuthStore } from '@/stores/auth.store'
+import { useCartStore } from '@/stores/cart.store'
+import { useWishlistStore } from '@/stores/wishlist.store'
+import { useUiStore } from '@/stores/ui.store'
+import { useNotificationsStore } from '@/stores/notifications.store'
 
 const authStore = useAuthStore();
 const cartStore = useCartStore();
@@ -161,6 +152,16 @@ const navLinks = [
         </button>
 
         <template v-if="authStore.isAuthenticated">
+          <!-- Admin dashboard link -->
+          <RouterLink
+            v-if="authStore.isAdmin"
+            to="/admin"
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all duration-200"
+            style="background: oklch(0.51 0.22 291 / 0.08); color: oklch(0.51 0.22 291);"
+          >
+            <LayoutDashboard :size="13" />
+            Dashboard
+          </RouterLink>
           <RouterLink
             to="/account/profile"
             class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-xl hover:bg-muted/80 transition-all duration-200 group"
@@ -246,12 +247,10 @@ const navLinks = [
             {{ link.label }}
           </RouterLink>
           <div class="pt-2 border-t border-border mt-2 flex flex-col gap-1">
-            <RouterLink
-              v-if="authStore.isAuthenticated"
-              to="/account/profile"
-              @click="uiStore.closeMobileMenu"
-              class="px-4 py-2.5 text-sm font-medium text-foreground rounded-xl hover:bg-muted/50 transition-all"
-            >
+            <RouterLink v-if="authStore.isAdmin" to="/admin" @click="uiStore.closeMobileMenu" class="px-4 py-2.5 text-sm font-semibold rounded-xl transition-all" style="color: oklch(0.51 0.22 291); background: oklch(0.51 0.22 291 / 0.06);">
+              Admin Dashboard
+            </RouterLink>
+            <RouterLink v-if="authStore.isAuthenticated" to="/account/profile" @click="uiStore.closeMobileMenu" class="px-4 py-2.5 text-sm font-medium text-foreground rounded-xl hover:bg-muted/50 transition-all">
               My Account
             </RouterLink>
             <button

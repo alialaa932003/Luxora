@@ -12,14 +12,19 @@ const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 
 onMounted(async () => {
-  if (authStore.isAuthenticated) {
-    await Promise.allSettled([
-      authStore.fetchMe(),
-      cartStore.fetchCart(),
-      wishlistStore.fetchWishlist(),
-    ])
-  } else {
-    await cartStore.fetchCart()
+  try {
+    if (authStore.isAuthenticated) {
+      await Promise.allSettled([
+        authStore.fetchMe(),
+        cartStore.fetchCart(),
+        wishlistStore.fetchWishlist(),
+      ])
+    } else if (localStorage.getItem('guest_cart_id')) {
+      // Only restore a guest cart if one was previously saved
+      await cartStore.fetchCart()
+    }
+  } catch {
+    // Silently ignore startup errors (e.g. backend offline)
   }
 })
 </script>

@@ -9,6 +9,7 @@ export const http = axios.create({
   withCredentials: true,
 })
 
+// Attach access token to every request
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token')
   if (token) {
@@ -17,6 +18,7 @@ http.interceptors.request.use((config) => {
   return config
 })
 
+// On 401, clear token and redirect to login — no retry loop
 http.interceptors.response.use(
   (response) => response,
   async (error) => {

@@ -29,6 +29,8 @@ export interface AuthUser {
   role: 'customer' | 'seller' | 'admin'
   avatar?: string
   isEmailVerified: boolean
+  phone?: string
+  address?: Address
 }
 
 export interface LoginPayload {
@@ -45,6 +47,11 @@ export interface RegisterPayload {
   confirmPassword: string
   phone?: string
   acceptTerms: boolean
+  role?: 'customer' | 'seller'
+  storeName?: string
+  storeDescription?: string
+  businessEmail?: string
+  businessPhone?: string
 }
 
 export interface LoginResponse {

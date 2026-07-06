@@ -4,6 +4,7 @@ import { authRoutes } from './routes/auth.routes'
 import { productRoutes } from './routes/product.routes'
 import { cartRoutes, checkoutRoutes } from './routes/cart.routes'
 import { accountRoutes } from './routes/account.routes'
+import { dashboardRoutes } from './routes/dashboard.routes'
 import { setupGuards } from './guards'
 
 const router = createRouter({
@@ -19,6 +20,7 @@ const router = createRouter({
     ...cartRoutes,
     ...checkoutRoutes,
     ...accountRoutes,
+    ...dashboardRoutes,
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',

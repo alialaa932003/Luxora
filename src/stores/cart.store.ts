@@ -23,6 +23,8 @@ export const useCartStore = defineStore('cart', () => {
       if (cart.value?.id && !localStorage.getItem(GUEST_CART_KEY)) {
         localStorage.setItem(GUEST_CART_KEY, cart.value.id)
       }
+    } catch {
+      // Backend unavailable — cart stays empty, no crash
     } finally {
       loading.value = false
     }

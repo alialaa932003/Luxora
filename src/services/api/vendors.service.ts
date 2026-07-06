@@ -10,10 +10,13 @@ export const vendorsService = {
   getStoreProducts: (storeSlug: string, params?: { page?: number; limit?: number }) =>
     http.get<PaginatedResponse<{ products: Product[] }>>(`/products`, { params: { vendorSlug: storeSlug, ...params } }),
 
-  registerAsVendor: (formData: FormData) =>
-    http.post<ApiResponse<{ vendor: Vendor }>>('/vendors/register', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    }),
+  registerAsVendor: (payload: {
+    storeName: string
+    storeDescription?: string
+    businessEmail?: string
+    businessPhone?: string
+  }) =>
+    http.post<ApiResponse<{ vendor: Vendor }>>('/vendors/register', payload),
 
   getMyStore: () =>
     http.get<ApiResponse<{ vendor: Vendor }>>('/vendors/dashboard/me'),

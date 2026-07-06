@@ -1,59 +1,100 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
-import { useForm } from "vee-validate";
-import { toTypedSchema } from "@vee-validate/zod";
-import {
-  Eye,
-  EyeOff,
-  ArrowRight,
-  Loader2,
-  Check,
-  Gift,
-  Truck,
-  BadgePercent,
-  HeartHandshake,
-} from "lucide-vue-next";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useAuthStore } from "@/stores/auth.store";
-import { useToast } from "@/composables/useToast";
-import { registerSchema } from "@/lib/validators";
+import { ref, computed } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import { z } from 'zod'
+import { Eye, EyeOff, ArrowRight, Loader2, Check, Gift, Truck, BadgePercent, HeartHandshake } from 'lucide-vue-next'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
+import { useAuthStore } from '@/stores/auth.store'
+import { useToast } from '@/composables/useToast'
+import { registerSchema } from '@/lib/validators'
 
 const authStore = useAuthStore();
 const { toast } = useToast();
 const router = useRouter();
 
-const showPassword = ref(false);
-const showConfirm = ref(false);
-const loading = ref(false);
-const registered = ref(false);
+const showPassword = ref(false)
+const showConfirm = ref(false)
+const loading = ref(false)
+const registered = ref(false)
+const sellerRegistered = ref(false)
+
+const activeRole = ref<'customer' | 'seller'>('customer')
+
+const sellerSchema = z.object({
+  firstName: z.string().min(2, 'First name must be at least 2 characters').max(50),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters').max(50),
+  email: z.string().email('Please enter a valid email'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Must contain an uppercase letter')
+    .regex(/[a-z]/, 'Must contain a lowercase letter')
+    .regex(/[0-9]/, 'Must contain a number')
+    .regex(/[^A-Za-z0-9]/, 'Must contain a special character'),
+  confirmPassword: z.string(),
+  phone: z.string().optional(),
+  acceptTerms: z.boolean().refine(val => val === true, { message: 'You must accept the terms' }),
+  storeName: z.string().min(2, 'Store name must be at least 2 characters').max(100),
+  storeDescription: z.string().min(10, 'Description must be at least 10 characters').optional().or(z.literal('')),
+  businessEmail: z.string().email('Please enter a valid email').optional().or(z.literal('')),
+  businessPhone: z.string().optional(),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword'],
+})
+
+const activeSchema = computed(() => {
+  if (activeRole.value === 'customer') {
+    return toTypedSchema(registerSchema)
+  }
+  return toTypedSchema(sellerSchema)
+})
 
 const form = useForm({
-  validationSchema: toTypedSchema(registerSchema),
+  validationSchema: activeSchema,
   initialValues: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    phone: "",
-    acceptTerms: false,
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    acceptTerms: false as unknown as true,
+    storeName: '',
+    storeDescription: '',
+    businessEmail: '',
+    businessPhone: '',
   },
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
   loading.value = true;
   try {
-    await authStore.register(values);
-    registered.value = true;
+    if (activeRole.value === 'customer') {
+      await authStore.register(values)
+      registered.value = true
+    } else {
+      // Single request — role + store info all go together
+      await authStore.register({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+        phone: values.phone,
+        acceptTerms: values.acceptTerms,
+        role: 'seller',
+        storeName: values.storeName,
+        storeDescription: values.storeDescription || undefined,
+        businessEmail: values.businessEmail || undefined,
+        businessPhone: values.businessPhone || undefined,
+      })
+      sellerRegistered.value = true
+    }
   } catch (err: unknown) {
     const msg =
       (err as { response?: { data?: { message?: string } } })?.response?.data
@@ -190,7 +231,28 @@ const benefits = [
           </div>
         </Transition>
 
-        <template v-if="!registered">
+        <!-- Seller Success State -->
+        <Transition name="fade">
+          <div v-if="sellerRegistered" class="text-center py-10">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 bg-emerald-500 text-white shadow-lg">
+              <Check :size="32" />
+            </div>
+            <h2 class="text-2xl font-bold text-foreground mb-3">Application Submitted!</h2>
+            <p class="text-muted-foreground mb-8 max-w-xs mx-auto text-sm leading-relaxed">
+              Your application to become a seller has been submitted successfully. An administrator will review your store details and approve your account shortly!
+            </p>
+            <RouterLink
+              to="/auth/login"
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-white font-semibold text-sm hover:opacity-90 transition-all shadow-md"
+            >
+              <span>Go to Sign In</span>
+              <ArrowRight :size="16" />
+            </RouterLink>
+          </div>
+        </Transition>
+
+        <template v-if="!registered && !sellerRegistered">
+          <!-- Header -->
           <div class="mb-7">
             <p
               class="text-sm text-muted-foreground font-medium uppercase tracking-widest mb-3"
@@ -214,6 +276,27 @@ const benefits = [
             </p>
           </div>
 
+          <!-- Role Selector Tabs -->
+          <div class="flex p-1 bg-muted rounded-xl mb-6 border border-input" style="background: oklch(0.96 0.008 85);">
+            <button
+              type="button"
+              @click="activeRole = 'customer'"
+              class="flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-200"
+              :style="activeRole === 'customer' ? 'background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1); color: oklch(0.14 0.02 280);' : 'color: oklch(0.52 0.015 285);'"
+            >
+              Customer
+            </button>
+            <button
+              type="button"
+              @click="activeRole = 'seller'"
+              class="flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-200"
+              :style="activeRole === 'seller' ? 'background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1); color: oklch(0.14 0.02 280);' : 'color: oklch(0.52 0.015 285);'"
+            >
+              Seller Partner
+            </button>
+          </div>
+
+          <!-- Form -->
           <form @submit="onSubmit" class="space-y-4" novalidate>
             <div class="grid grid-cols-2 gap-3">
               <FormField v-slot="{ componentField }" name="firstName">
@@ -376,15 +459,93 @@ const benefits = [
               </FormItem>
             </FormField>
 
-            <FormField v-slot="{ field }" name="acceptTerms" type="checkbox">
+            <!-- Seller Specific Fields -->
+            <div v-if="activeRole === 'seller'" class="space-y-4 pt-4 border-t border-dashed border-input mt-4">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-1">Store Information</h3>
+
+              <FormField v-slot="{ componentField }" name="storeName">
+                <FormItem>
+                  <FormLabel class="text-sm font-semibold text-foreground">Store Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      v-bind="componentField"
+                      id="register-store-name"
+                      placeholder="My Premium Store"
+                      class="h-11 rounded-xl text-sm"
+                      style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+
+              <FormField v-slot="{ componentField }" name="businessEmail">
+                <FormItem>
+                  <FormLabel class="text-sm font-semibold text-foreground">
+                    Business Email <span class="text-muted-foreground font-normal text-xs">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      v-bind="componentField"
+                      id="register-business-email"
+                      type="email"
+                      placeholder="partners@mystore.com"
+                      class="h-11 rounded-xl text-sm"
+                      style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+
+              <FormField v-slot="{ componentField }" name="businessPhone">
+                <FormItem>
+                  <FormLabel class="text-sm font-semibold text-foreground">
+                    Business Phone <span class="text-muted-foreground font-normal text-xs">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      v-bind="componentField"
+                      id="register-business-phone"
+                      type="tel"
+                      placeholder="+20 100 000 0000"
+                      class="h-11 rounded-xl text-sm"
+                      style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85);"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+
+              <FormField v-slot="{ componentField }" name="storeDescription">
+                <FormItem>
+                  <FormLabel class="text-sm font-semibold text-foreground">
+                    Store Description <span class="text-muted-foreground font-normal text-xs">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <textarea
+                      v-bind="componentField"
+                      id="register-store-description"
+                      placeholder="Describe what you plan to sell on Lumina..."
+                      rows="3"
+                      class="w-full p-3 rounded-xl text-sm border focus:ring-1 focus:outline-none"
+                      style="background: oklch(0.975 0.006 85); border-color: oklch(0.88 0.008 85); resize: none;"
+                    ></textarea>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+            </div>
+
+            <FormField v-slot="{ value, handleChange, errorMessage }" name="acceptTerms">
               <FormItem class="flex items-start gap-3 space-y-0 pt-1">
                 <FormControl class="mt-0.5">
-                  <Checkbox
-                    id="acceptTerms"
-                    :name="field.name"
-                    :model-value="field.value"
-                    @update:model-value="field.onChange"
-                    class="data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-background"
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    :checked="value"
+                    @change="handleChange(!value)"
+                    class="size-4 rounded border border-input accent-primary cursor-pointer"
                   />
                 </FormControl>
                 <div>
@@ -420,7 +581,7 @@ const benefits = [
             >
               <Loader2 v-if="loading" :size="18" class="animate-spin" />
               <template v-else>
-                <span>Create account</span>
+                <span>{{ activeRole === 'customer' ? 'Create account' : 'Apply as Seller Partner' }}</span>
                 <ArrowRight :size="16" />
               </template>
             </button>

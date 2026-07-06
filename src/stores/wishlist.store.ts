@@ -21,6 +21,8 @@ export const useWishlistStore = defineStore('wishlist', () => {
       const res = await wishlistService.get()
       items.value = res.data.data.wishlist.items
       itemCount.value = res.data.data.wishlist.itemCount
+    } catch {
+      // Backend unavailable — wishlist stays empty, no crash
     } finally {
       loading.value = false
     }

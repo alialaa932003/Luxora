@@ -13,4 +13,14 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  build: {
+    rolldownOptions: {
+      onLog(level, log, handler) {
+        if (log.code === 'INVALID_ANNOTATION') {
+          return
+        }
+        handler(level, log)
+      },
+    },
+  },
 })

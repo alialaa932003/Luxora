@@ -42,9 +42,23 @@ const form = useForm({
 const onSubmit = form.handleSubmit(async (values) => {
   loading.value = true;
   try {
-    await authStore.login(values);
-    const redirect = route.query.redirect as string | undefined;
-    router.push(redirect ?? { name: "home" });
+    await authStore.login(values)
+
+    // If there's an explicit redirect query param, honour it
+    const redirect = route.query.redirect as string | undefined
+    if (redirect) {
+      router.push(redirect)
+      return
+    }
+
+    // Otherwise route by role
+    if (authStore.isAdmin) {
+      router.push({ name: 'admin-overview' })
+    } else if (authStore.isSeller) {
+      router.push({ name: 'seller-overview' })
+    } else {
+      router.push({ name: 'home' })
+    }
   } catch (err: unknown) {
     const msg =
       (err as { response?: { data?: { message?: string } } })?.response?.data
@@ -233,12 +247,12 @@ const highlights = [
           </FormField>
 
           <div class="flex items-center justify-between">
-            <FormField v-slot="{ field }" name="rememberMe" type="checkbox">
+            <FormField v-slot="{ value }" name="rememberMe">
               <FormItem class="flex items-center gap-2.5 space-y-0">
                 <FormControl>
                   <Checkbox
-                    :model-value="field.value"
-                    @update:model-value="field.onChange"
+                    :checked="value"
+                    @update:checked="(checked) => form.setFieldValue('rememberMe', checked)"
                     id="rememberMe"
                     class="data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-background"
                   />

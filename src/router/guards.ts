@@ -13,8 +13,26 @@ export function setupGuards(router: Router) {
       return { name: 'home' }
     }
 
+    if (to.meta.requiresAdmin) {
+      if (!authStore.isAuthenticated) {
+        return { name: 'login', query: { redirect: to.fullPath } }
+      }
+      if (!authStore.isAdmin) {
+        return { name: 'home' }
+      }
+    }
+
+    if (to.meta.requiresSeller) {
+      if (!authStore.isAuthenticated) {
+        return { name: 'login', query: { redirect: to.fullPath } }
+      }
+      if (!authStore.isSeller && !authStore.isAdmin) {
+        return { name: 'home' }
+      }
+    }
+
     if (to.meta.title) {
-      document.title = `${to.meta.title} - Luxora`;
+      document.title = `${to.meta.title} — Luxora`
     }
 
     return true

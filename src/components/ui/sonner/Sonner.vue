@@ -14,7 +14,16 @@ import { Toaster as Sonner } from "vue-sonner"
 import "vue-sonner/style.css"
 import { cn } from "@/lib/utils"
 
+import { computed } from 'vue'
+
 const props = defineProps<ToasterProps>()
+
+const computedToastOptions = computed(() => ({
+  classes: {
+    toast: 'rounded-2xl',
+  },
+  ...props.toastOptions,
+}))
 </script>
 
 <template>
@@ -31,21 +40,7 @@ const props = defineProps<ToasterProps>()
       '--gray5': 'var(--border)',
       '--gray12': 'var(--popover-foreground)',
     }"
-    v-bind="{
-      ...props,
-      toastOptions: {
-        ...props.toastOptions,
-        classes: {
-          toast:
-            'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg rounded-2xl',
-          description: 'group-[.toast]:text-muted-foreground',
-          actionButton:
-            'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
-          cancelButton:
-            'group-[.toast]:bg-muted group-[.toast]:text-muted-foreground',
-        },
-      }
-    }"
+    v-bind="{ ...props, toastOptions: computedToastOptions }"
   >
     <template #success-icon>
       <CircleCheckIcon class="size-4" />
