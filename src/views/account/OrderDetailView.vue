@@ -233,6 +233,7 @@ function cancelOrder() {
               <div class="flex items-center gap-3.5">
                 <div
                   class="w-14 h-14 rounded-2xl overflow-hidden border border-border/40 bg-muted/20 shrink-0"
+                >
                   <img
                     v-if="item.thumbnail"
                     :src="item.thumbnail"

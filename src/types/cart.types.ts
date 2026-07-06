@@ -3,7 +3,8 @@ export interface CartProduct {
   id: string
   name: string
   slug: string
-  thumbnail: {url: string}
+  thumbnail?: {url: string}
+  images?: {url: string}[]
 }
 
 export interface CartItem {
