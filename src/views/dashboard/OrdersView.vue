@@ -70,7 +70,8 @@ function formatCurrency(n: number) {
 }
 
 function getInitials(o: AdminOrder) {
-  return `${o.customer.firstName[0]}${o.customer.lastName[0]}`.toUpperCase()
+  if (!o.customer) return '??'
+  return `${o.customer.firstName[0] || ''}${o.customer.lastName[0] || ''}`.toUpperCase()
 }
 
 const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
@@ -165,15 +166,17 @@ const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
               <td class="px-6 py-4 hidden sm:table-cell">
                 <div class="flex items-center gap-2.5">
                   <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-                    <img v-if="order.customer.avatar" :src="order.customer.avatar" class="w-full h-full object-cover" />
+                    <img v-if="order.customer?.avatar" :src="order.customer.avatar" class="w-full h-full object-cover" />
                     <div v-else class="w-full h-full flex items-center justify-center text-white text-xs font-bold"
                        style="background: oklch(0.51 0.22 291);">
                       {{ getInitials(order) }}
                     </div>
                   </div>
                   <div>
-                    <p class="text-sm font-medium" style="color: oklch(0.14 0.02 280);">{{ order.customer.firstName }} {{ order.customer.lastName }}</p>
-                    <p class="text-xs" style="color: oklch(0.52 0.015 285);">{{ order.customer.email }}</p>
+                    <p class="text-sm font-medium" style="color: oklch(0.14 0.02 280);">
+                      {{ order.customer ? `${order.customer.firstName} ${order.customer.lastName}` : 'Deleted User' }}
+                    </p>
+                    <p class="text-xs" style="color: oklch(0.52 0.015 285);">{{ order.customer?.email || 'N/A' }}</p>
                   </div>
                 </div>
               </td>

@@ -415,7 +415,7 @@ function handleReviewSubmit(review: {
               </div>
             </div>
             <RouterLink
-              :to="`/vendors/${product.vendor.id}`"
+              :to="`/vendors/${product.vendor.storeSlug || product.vendor.id}`"
               class="px-4 py-2 rounded-xl border border-border hover:bg-muted/50 font-bold text-xs text-foreground transition-all duration-150 shadow-sm"
             >
               View store

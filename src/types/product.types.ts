@@ -17,6 +17,8 @@ export interface ProductCategory {
 export interface ProductVendor {
   id: string
   storeName: string
+  storeSlug?: string
+  logo?: CloudinaryImage
   rating?: number
 }
 
