@@ -31,7 +31,7 @@ async function addToCart() {
   adding.value = true;
   try {
     await cartStore.addItem({ productId: (props.product as any)._id || props.product.id, quantity: 1 });
-    toast({ title: "Added to cart", description: props.product.name });
+    toast({ title: "Added to cart", description: props.product.name, variant: "cart" });
   } finally {
     adding.value = false;
   }

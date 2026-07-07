@@ -118,8 +118,9 @@ async function addToCart() {
       quantity: quantity.value,
     });
     toast({
-      title: "Added to cart!",
-      description: `${product.value.name} × ${quantity.value}`,
+      title: "Added to cart",
+      description: `${quantity.value}x ${product.value.name}`,
+      variant: "cart",
     });
   } finally {
     adding.value = false;
