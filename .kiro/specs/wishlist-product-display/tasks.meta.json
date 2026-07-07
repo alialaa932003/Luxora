@@ -1,0 +1,204 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "Add `<ProductGrid>` component that renders when itemCount > 0": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431253160
+      }
+    ],
+    "Verify ProductGrid is already imported in the component": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431253512
+      }
+    ],
+    "Remove the `<p v-else>` placeholder paragraph that displays \"Wishlist products would display here when connected to a live backend\"": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431257249
+      }
+    ],
+    "Pass the mapped wishlist items as products prop to ProductGrid": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431257481
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431377536
+      }
+    ],
+    "Analyze WishlistItem data structure from wishlistStore.items": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431257661
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431264256
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431375066
+      }
+    ],
+    "Analyze Product data structure expected by ProductGrid component": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431257856
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431375427
+      }
+    ],
+    "Create computed property `displayProducts` that maps wishlistStore.items to Product format": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431258109
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431264753
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431374538
+      }
+    ],
+    "Transform WishlistProduct fields (id, name, slug, price, thumbnail string, stock) to Product fields": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431258292
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431376031
+      }
+    ],
+    "Handle missing fields like category, vendor, rating, images with sensible defaults": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431258468
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431376673
+      }
+    ],
+    "Ensure CloudinaryImage thumbnail format is properly converted from string URL": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431258651
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431376989
+      }
+    ],
+    "Verify ProductGrid renders when wishlist contains items": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431258829
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431724609
+      }
+    ],
+    "Verify EmptyState component shows when wishlist is empty (itemCount = 0)": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431259010
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431724901
+      }
+    ],
+    "Test product card interactions (wishlist toggle, add to cart buttons)": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431259198
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431725246
+      }
+    ],
+    "Verify page title \"Wishlist - Luxora\" is still set on mount": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431259364
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431739961
+      }
+    ],
+    "Verify itemCount is displayed correctly in the page heading": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431259581
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431725943
+      }
+    ],
+    "Verify wishlist items are fetched from backend on page load": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431259782
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431726430
+      }
+    ],
+    "Test navigation back to wishlist page with items already added": [
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431260188
+      },
+      {
+        "executionId": "3bf5f981-e901-4b93-9da6-c921151e6f09",
+        "chatSessionId": "sess_862393b4-c401-4efd-93b4-bf483f3af739",
+        "timestamp": 1783431728744
+      }
+    ]
+  }
+}

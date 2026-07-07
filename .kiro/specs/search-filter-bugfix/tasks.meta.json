@@ -1,0 +1,828 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "Open `BackEnd/utils/apiFeatures.js`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437854312
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437910063
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437935286
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438085584
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438593256
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439088093
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439107401
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439122126
+      }
+    ],
+    "Locate the constructor method": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437883694
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438093432
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438593901
+      }
+    ],
+    "Add `this.originalQueryString = { ...queryString }` to preserve original query parameters": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437885641
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438098730
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438594701
+      }
+    ],
+    "Verify the property is created as a shallow copy (not a reference)": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437887197
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438598256
+      }
+    ],
+    "Constructor creates the originalQueryString property": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437892174
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438599070
+      }
+    ],
+    "Shallow copy is used (so each instance has its own copy)": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437900125
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438599831
+      }
+    ],
+    "Property is accessible in other methods": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437908741
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438600523
+      }
+    ],
+    "Locate the `filter()` method": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437912933
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438605482
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438671178
+      }
+    ],
+    "Review the current excludedFields array": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437914474
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438671751
+      }
+    ],
+    "Add the following to excludedFields (if not present): 'q', 'minPrice', 'maxPrice', 'category'": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437917315
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438672643
+      }
+    ],
+    "Verify that filter() doesn't delete these parameters from queryString": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437919795
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438673333
+      }
+    ],
+    "Test that other filter parameters are still removed correctly": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437923788
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438674088
+      }
+    ],
+    "excludedFields array includes 'q', 'minPrice', 'maxPrice'": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437927561
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438677526
+      }
+    ],
+    "filter() doesn't break when these parameters are present": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437930794
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438678298
+      }
+    ],
+    "Dynamic filters (like category filters) still work": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437934315
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438679289
+      }
+    ],
+    "Locate the `priceRange()` method": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437937686
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438606232
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438680118
+      }
+    ],
+    "Find all references to `this.queryString.minPrice` and `this.queryString.maxPrice`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437939378
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438681159
+      }
+    ],
+    "Replace with `this.originalQueryString.minPrice` and `this.originalQueryString.maxPrice`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437941900
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438681898
+      }
+    ],
+    "Ensure type conversion (Number()) is preserved": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437948055
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438685382
+      }
+    ],
+    "Verify the method returns 'this' for method chaining": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437950865
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438686538
+      }
+    ],
+    "priceRange() reads from originalQueryString": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437953825
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438687082
+      }
+    ],
+    "Number() type conversion is applied": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437955058
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438687912
+      }
+    ],
+    "Price filters are correctly formatted ($gte, $lte)": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437958737
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438689208
+      }
+    ],
+    "Open `BackEnd/controllers/productController.js`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437961950
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438693834
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438868440
+      }
+    ],
+    "Locate the `getProducts()` method": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437964205
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438694612
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438869102
+      }
+    ],
+    "Find the APIFeatures chain (the .filter().sort().paginate() sequence)": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437966642
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438870848
+      }
+    ],
+    "Move the `.textSearch('name', req.query.q)` call to BEFORE `.filter()`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437968527
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438696926
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438869852
+      }
+    ],
+    "Ensure the final order is: textSearch → filter → sort → limitFields → paginate → priceRange": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437971898
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438871537
+      }
+    ],
+    "Verify the method chain syntax is correct and has no syntax errors": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437974002
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438872280
+      }
+    ],
+    "textSearch is before filter in the chain": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437976020
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438876029
+      }
+    ],
+    "priceRange is after paginate in the chain": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437978448
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438876701
+      }
+    ],
+    "No syntax errors in the chain": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437980788
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438877362
+      }
+    ],
+    "All methods are present": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437982852
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438878203
+      }
+    ],
+    "Verify results contain products matching \"laptop\"": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437985907
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438886216
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439050594
+      }
+    ],
+    "Verify result count is accurate": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437988752
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437998407
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438026188
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439051344
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439094581
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439111887
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439122834
+      }
+    ],
+    "Verify all results are within price range": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437991216
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439052110
+      }
+    ],
+    "Verify result count includes all matching products": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437992295
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439052906
+      }
+    ],
+    "Verify all results are in that category": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783437996413
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439053706
+      }
+    ],
+    "Verify all results have rating >= 3": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438005645
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439058242
+      }
+    ],
+    "Verify all results have stock > 0": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438008728
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439059067
+      }
+    ],
+    "Verify results match search AND are in price range": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438018572
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439059850
+      }
+    ],
+    "Verify accuracy of combined filter": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438021979
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439060786
+      }
+    ],
+    "Verify all filters are applied": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438025604
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439061477
+      }
+    ],
+    "Verify correct page of filtered results is returned": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438028779
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439065574
+      }
+    ],
+    "Verify page count is accurate": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438032774
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439066464
+      }
+    ],
+    "Verify results are sorted by price descending": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438034811
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439067125
+      }
+    ],
+    "Verify sorting is applied to filtered results": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438040184
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439068003
+      }
+    ],
+    "Check for console errors and warnings": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438041249
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438883885
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439068901
+      }
+    ],
+    "Verify API response structure is correct": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438042989
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439069753
+      }
+    ],
+    "All individual filters work": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438047129
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439073588
+      }
+    ],
+    "Combined filters work together": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438048799
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439074282
+      }
+    ],
+    "Pagination preserves filters": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438050401
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439075121
+      }
+    ],
+    "Sorting preserves filters": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438053186
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439075787
+      }
+    ],
+    "No errors in browser console or server logs": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438055518
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439076698
+      }
+    ],
+    "Result counts are accurate": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783438058666
+      },
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439077533
+      }
+    ],
+    "Test price filter alone: `GET /api/products?minPrice=50&maxPrice=200`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439053261
+      }
+    ],
+    "Test rating filter alone: `GET /api/products?rating[gte]=3`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439058460
+      }
+    ],
+    "Test stock filter alone: `GET /api/products?stock[gt]=0`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439059343
+      }
+    ],
+    "Test search + price filter: `GET /api/products?q=laptop&minPrice=50&maxPrice=200`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439061059
+      }
+    ],
+    "Test pagination with filters: `GET /api/products?q=laptop&page=2&limit=10`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439066759
+      }
+    ],
+    "Test sorting with filters: `GET /api/products?q=laptop&sort=-price`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439068368
+      }
+    ],
+    "Test search query alone: `GET /api/products?q=laptop`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439089160
+      }
+    ],
+    "Test category filter alone: `GET /api/products?category=electronics`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439089758
+      }
+    ],
+    "Test multiple filters combined: `GET /api/products?q=laptop&category=electronics&minPrice=50&maxPrice=200&rating[gte]=3`": [
+      {
+        "executionId": "bc1eb33c-778b-4386-adb0-804d29bad62e",
+        "chatSessionId": "sess_1053221b-7b9c-43d2-83ab-0e777ba28261",
+        "timestamp": 1783439090781
+      }
+    ]
+  }
+}

@@ -4,8 +4,48 @@ import { Heart } from 'lucide-vue-next'
 import ProductGrid from '@/components/common/product/ProductGrid.vue'
 import EmptyState from '@/components/common/feedback/EmptyState.vue'
 import { useWishlistStore } from '@/stores/wishlist.store'
+import type { Product } from '@/types/product.types'
 
 const wishlistStore = useWishlistStore()
+
+const displayProducts = computed<Product[]>(() => {
+  return wishlistStore.items.map((item) => ({
+    id: item.product.id,
+    name: item.product.name,
+    slug: item.product.slug,
+    price: item.product.price,
+    stock: item.product.stock,
+    thumbnail: {
+      url: item.product.thumbnail,
+      publicId: '',
+    },
+    description: '',
+    currency: 'USD',
+    images: [
+      {
+        url: item.product.thumbnail,
+        alt: item.product.name,
+        order: 0,
+      },
+    ],
+    category: {
+      id: '',
+      name: 'Uncategorized',
+      slug: '',
+    },
+    vendor: {
+      id: '',
+      storeName: 'Unknown Vendor',
+      storeSlug: '',
+    },
+    rating: {
+      average: 0,
+      count: 0,
+    },
+    isFeatured: false,
+    createdAt: item.addedAt,
+  }))
+})
 
 onMounted(() => {
   document.title = 'Wishlist - Luxora'
@@ -31,8 +71,12 @@ onMounted(() => {
       action-to="/products"
     />
 
-    <p v-else class="text-muted-foreground text-sm">
-      Wishlist products would display here when connected to a live backend.
-    </p>
+    <ProductGrid
+      v-else
+      :products="displayProducts"
+      :loading="wishlistStore.loading"
+      empty-title="No products in wishlist"
+      empty-description="Your wishlist is empty"
+    />
   </div>
 </template>
