@@ -26,6 +26,7 @@ const currentCoupon = ref<Partial<Coupon>>({
   perUserLimit: 1,
   isActive: true,
 })
+const hasExpiry = ref(false)
 let editId = ''
 
 async function fetchCoupons(showSpinner = true) {
@@ -41,6 +42,7 @@ onMounted(() => fetchCoupons())
 
 function openCreateModal() {
   modalMode.value = 'create'
+  hasExpiry.value = false
   currentCoupon.value = {
     code: '',
     type: 'percentage',
@@ -49,6 +51,7 @@ function openCreateModal() {
     usageLimit: 100,
     perUserLimit: 1,
     isActive: true,
+    expiresAt: undefined,
   }
   isModalOpen.value = true
 }
@@ -57,6 +60,13 @@ function openEditModal(c: Coupon) {
   modalMode.value = 'edit'
   editId = c._id
   currentCoupon.value = { ...c }
+  if (c.expiresAt) {
+    hasExpiry.value = true
+    currentCoupon.value.expiresAt = new Date(c.expiresAt).toISOString().split('T')[0]
+  } else {
+    hasExpiry.value = false
+    currentCoupon.value.expiresAt = undefined
+  }
   isModalOpen.value = true
 }
 
@@ -68,11 +78,16 @@ async function handleSave() {
   
   actionLoading.value = true
   try {
+    const payload = { ...currentCoupon.value }
+    if (!hasExpiry.value) {
+      payload.expiresAt = null as any // Pass null to remove existing expiry
+    }
+
     if (modalMode.value === 'create') {
-      await couponsService.create(currentCoupon.value)
+      await couponsService.create(payload)
       toast({ title: 'Success', description: 'Coupon created' })
     } else {
-      await couponsService.update(editId, currentCoupon.value)
+      await couponsService.update(editId, payload)
       toast({ title: 'Success', description: 'Coupon updated' })
     }
     isModalOpen.value = false
@@ -195,6 +210,10 @@ function formatValue(c: Partial<Coupon>) {
             <span class="text-gray-500">Usage</span>
             <span class="font-medium">{{ coupon.usageCount }} / {{ coupon.usageLimit || '∞' }}</span>
           </div>
+          <div class="flex justify-between" v-if="coupon.expiresAt">
+            <span class="text-gray-500">Expires</span>
+            <span class="font-medium text-red-500">{{ new Date(coupon.expiresAt).toLocaleDateString() }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -245,6 +264,16 @@ function formatValue(c: Partial<Coupon>) {
         <div class="flex items-center gap-2 mt-2">
           <input type="checkbox" id="active" v-model="currentCoupon.isActive" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" />
           <Label for="active" class="font-normal cursor-pointer">Coupon is active</Label>
+        </div>
+        <div class="space-y-3 mt-2 pt-4 border-t border-border">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="hasExpiry" v-model="hasExpiry" class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" />
+            <Label for="hasExpiry" class="font-semibold cursor-pointer">Has expiration date</Label>
+          </div>
+          <div v-if="hasExpiry" class="grid gap-2">
+            <Label for="expiresAt">Expiration Date</Label>
+            <Input id="expiresAt" type="date" v-model="currentCoupon.expiresAt" />
+          </div>
         </div>
       </div>
       
